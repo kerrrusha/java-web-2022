@@ -15,10 +15,13 @@ public class Main {
 		FutureTask<List<String>> task = new FutureTask<>(swapper);
 		Executor executor = (runnable) -> new Thread(runnable).start();
 		executor.execute(task);
+		System.out.println(Thread.currentThread().getName() + " started task.");
 
 		try {
+			List<String> filesOperated = task.get();
+
 			System.out.println("Files operated:");
-			task.get().forEach(System.out::println);
+			filesOperated.forEach(System.out::println);
 		} catch (ExecutionException | InterruptedException e) {
 			throw new RuntimeException(e);
 		}

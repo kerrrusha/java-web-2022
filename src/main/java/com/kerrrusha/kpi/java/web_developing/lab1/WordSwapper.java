@@ -33,7 +33,7 @@ public class WordSwapper implements Callable<List<String>> {
         int firstWordEndPos = firstWordStartPos + firstWord.length();
 
         String lastWord = words.get(words.size() - 1);
-        int lastWordStartPos = str.indexOf(lastWord);
+        int lastWordStartPos = str.lastIndexOf(lastWord);
         int lastWordEndPos = lastWordStartPos + lastWord.length();
 
         return str.substring(0, firstWordStartPos) + lastWord +
@@ -90,6 +90,7 @@ public class WordSwapper implements Callable<List<String>> {
                     executor.execute(task);
                 } else {
                     if (! isATextFile(f)) {
+                        System.out.println(f.getName() + " is not a txt file - passing it.");
                         continue;
                     }
                     filesFound.add(swapInFile(f));
@@ -98,6 +99,7 @@ public class WordSwapper implements Callable<List<String>> {
             for (Future<List<String>> result : results) {
                 filesFound.addAll(result.get());
             }
+            System.out.println(Thread.currentThread().getName() + " successfully finished swapping words.");
         }
         catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);

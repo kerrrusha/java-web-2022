@@ -21,6 +21,8 @@ public class WordSwapperTest {
 		List<TestPair> testPairs = new ArrayList<>(List.of(
 				new TestPair("end of passion", "passion of end"),
 				new TestPair(":some.word;-here.", ":here.word;-some."),
+				new TestPair("30 word and text", "30 text and word"),
+				new TestPair("equal and equal", "equal and equal"),
 				new TestPair("", ""),
 				new TestPair("test", "test")
 		));
