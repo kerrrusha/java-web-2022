@@ -49,6 +49,9 @@ FOREIGN KEY (blocked_by_user_id) REFERENCES user (id) ON DELETE CASCADE
 create table money_card (
 id int PRIMARY KEY AUTO_INCREMENT,
 money_account_id int not null,
+number text not null,
+expiration_date date not null,
+secret text not null,
 balance bigint default 0,
 created_time timestamp default current_timestamp,
 updated_time timestamp on update current_timestamp,
@@ -82,7 +85,7 @@ select * from user;
 insert into money_account(name, owner_user_id) values ('exampleMoneyAccount', 1);
 select * from money_account;
 
-insert into money_card(money_account_id, balance) values (1, 100);
+insert into money_card(money_account_id, number, expiration_date, secret, balance) values (1, '1234 5678 9101 1121', '2024-12-16', '123', 100);
 select * from money_card;
 
 insert into billing_status(name) values ('prepared'), ('done');
