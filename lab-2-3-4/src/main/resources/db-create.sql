@@ -91,4 +91,4 @@ select * from billing_status;
 insert into billing(money_amount, from_money_card_id, to_money_card_id) values (50, 1, 1);
 select * from billing;
 
-drop database payment_system;
+# drop database payment_system;
