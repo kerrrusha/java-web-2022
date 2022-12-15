@@ -1,4 +1,4 @@
-package com.kerrrusha.lab234;
+package com.kerrrusha.lab234.controller;
 
 import java.io.*;
 
