@@ -60,7 +60,7 @@
                     </div>
                   </div>
 					
-					<div class="errors-block" style="visibility: hidden;"></div>
+					<div class="errors-block my-3" style="visibility: hidden;"></div>
 					
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                     <button type="button" onclick="processRegister('${pageContext.request.contextPath}/auth/register', '${pageContext.request.contextPath}/')" class="btn btn-primary btn-lg">Register</button>
@@ -69,12 +69,12 @@
                 </form>
 
               </div>
-              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+              <a href="${pageContext.request.contextPath}" class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center justify-content-center order-1 order-lg-2">
 
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/005/007/580/small/money-cash-wealth-payment-line-icon-illustration-logo-template-suitable-for-many-purposes-free-vector.jpg"
                   class="img-fluid" alt="Sample image">
 
-              </div>
+              </a>
             </div>
           </div>
         </div>
