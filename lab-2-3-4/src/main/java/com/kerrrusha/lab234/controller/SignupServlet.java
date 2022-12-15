@@ -1,10 +1,14 @@
 package com.kerrrusha.lab234.controller;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
+@WebServlet("/signup")
 public class SignupServlet extends HttpServlet {
 
     @Override
