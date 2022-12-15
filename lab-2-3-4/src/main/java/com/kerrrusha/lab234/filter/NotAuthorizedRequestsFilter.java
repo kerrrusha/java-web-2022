@@ -12,10 +12,10 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 
-@WebFilter(filterName = "IsAuthorizedFilter", urlPatterns = "/", description = "Redirect all not authorized requests to signup.jsp")
-public class IsAuthorizedFilter implements Filter {
+@WebFilter(urlPatterns = "/", description = "Redirect all not authorized requests to signup.jsp")
+public class NotAuthorizedRequestsFilter implements Filter {
 
-	private static final Logger logger = Logger.getLogger(IsAuthorizedFilter.class);
+	private static final Logger logger = Logger.getLogger(NotAuthorizedRequestsFilter.class);
 
 	public void init(FilterConfig config) {}
 
@@ -31,11 +31,11 @@ public class IsAuthorizedFilter implements Filter {
 
 		if (loggedIn) {
 			User user = (User) session.getAttribute("user");
-			logger.info("New authorized request from user.id = " + user.getId());
+			logger.info("Authorized request to index from user.id = " + user.getId());
 			chain.doFilter(request, response);
 		} else {
-			logger.info("New non-authorized request");
-			httpServletResponse.sendRedirect(request.getServletContext().getContextPath() + "/signup");
+			logger.info("Non-authorized request to index");
+			httpServletResponse.sendRedirect(request.getServletContext().getContextPath() + "/signin");
 		}
 	}
 }
