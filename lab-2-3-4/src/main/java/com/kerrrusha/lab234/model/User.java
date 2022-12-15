@@ -58,6 +58,10 @@ public class User {
         return last_name;
     }
 
+    public String getFullName() {
+        return getFirstName() + " " + getLastName();
+    }
+
     public String getPhone() {
         return phone;
     }
