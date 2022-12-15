@@ -1,16 +1,18 @@
 package com.kerrrusha.lab234.filter;
 
 import com.kerrrusha.lab234.model.User;
-import jakarta.servlet.*;
-import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
 
-@WebFilter(value = "/is-authorized-filter")
+@WebFilter(filterName = "IsAuthorizedFilter", urlPatterns = "/", description = "Redirect all not authorized requests to signup.jsp")
 public class IsAuthorizedFilter implements Filter {
 
 	private static final Logger logger = Logger.getLogger(IsAuthorizedFilter.class);
