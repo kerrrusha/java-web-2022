@@ -7,6 +7,7 @@ import com.kerrrusha.lab234.dao.user.constant.Fields;
 import com.kerrrusha.lab234.dao.user.constant.Queries;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -78,10 +79,10 @@ public class UserDao extends AbstractDao {
 		}
 	}
 
-	public void deleteById(User entity) throws DBException {
+	public void deleteById(int id) throws DBException {
 		try (Connection con = DriverManager.getConnection(FULL_URL);
 		     PreparedStatement stmt = con.prepareStatement(Queries.DELETE_USER_BY_ID)) {
-			stmt.setInt(1, entity.getId());
+			stmt.setInt(1, id);
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -89,10 +90,10 @@ public class UserDao extends AbstractDao {
 		}
 	}
 
-	public void deleteByPhone(User entity) throws DBException {
+	public void deleteByPhone(String phone) throws DBException {
 		try (Connection con = DriverManager.getConnection(FULL_URL);
 		     PreparedStatement stmt = con.prepareStatement(Queries.DELETE_USER_BY_PHONE)) {
-			stmt.setString(1, entity.getPhone());
+			stmt.setString(1, phone);
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -109,9 +110,16 @@ public class UserDao extends AbstractDao {
 		user.setPhone(rs.getString(Fields.USER_PHONE));
 		user.setPassword(rs.getString(Fields.USER_PASSWORD));
 		user.setRoleId(rs.getInt(Fields.USER_ROLE_ID));
-		user.setCreatedTime(rs.getTimestamp(Fields.USER_CREATED_TIME).toLocalDateTime());
-		user.setUpdatedTime(rs.getTimestamp(Fields.USER_UPDATED_TIME).toLocalDateTime());
+		user.setCreatedTime(mapToLocalDateTime(rs.getTimestamp(Fields.USER_CREATED_TIME)));
+		user.setUpdatedTime(mapToLocalDateTime(rs.getTimestamp(Fields.USER_UPDATED_TIME)));
 
 		return user;
+	}
+
+	private LocalDateTime mapToLocalDateTime(Timestamp timestamp) {
+		if (timestamp == null) {
+			return null;
+		}
+		return timestamp.toLocalDateTime();
 	}
 }
