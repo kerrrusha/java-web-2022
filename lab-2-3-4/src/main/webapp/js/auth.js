@@ -1,12 +1,12 @@
-function processLogin(url) {
+function processLogin(loginUrl, afterRegisterUrl) {
 	hideErrorsBlock();
 
-	let login = $(".login-show input[placeholder=Nickname]").val();
-	let password = $(".login-show input[placeholder=Password]").val();
+	let phone = $("#phone").val();
+	let password = $("#password").val();
 
 	let errors = [];
-	if (!validateLogin(login)) {
-		errors.push("Login must be at least 3 characters long and must not contain spaces.");
+	if (!validatePhone(phone)) {
+		errors.push("Phone must be in format like '+380123456789'.");
 	}
 	if (!validatePassword(password)) {
 		errors.push("Password must be at least 3 characters long and must not contain spaces.");
@@ -17,15 +17,17 @@ function processLogin(url) {
 		return;
 	}
 
-	let data = "login="+login+"&password="+password;
+	phone = phone.replace("+", "%2B")
+
+	let data = "phone="+phone+"&password="+password;
 	$.ajax({
 	  type: "POST",
-	  url: url,
+	  url: loginUrl,
 	  data: data,
 	  success: function(response) {
 		  console.log(response);
 		  if (response["status"] === 200) {
-			  location.reload();
+			  window.location.replace(afterRegisterUrl);
 		  } else {
 			  showErrors(response["errorPool"]);
 		  }
@@ -54,10 +56,6 @@ function createErrorsHtmlList(errors) {
 	});
 	html += "</ul>";
 	return html;
-}
-
-function validateLogin(login) {
-	return login.trim().length >= 3 && !login.includes(" ");
 }
 
 function isCharNumber(c) {
@@ -118,6 +116,8 @@ function processRegister(registerUrl, afterRegisterUrl) {
 		showErrors(errors);
 		return;
 	}
+
+	phone = phone.replace("+", "%2B")
 
 	let data = "firstName="+firstName+"&lastName="+lastName+"&phone="+phone+"&password="+password+"&passwordRepeat="+passwordRepeat;
 	$.ajax({
