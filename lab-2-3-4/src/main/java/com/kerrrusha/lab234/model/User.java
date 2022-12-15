@@ -1,6 +1,7 @@
 package com.kerrrusha.lab234.model;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class User {
 
@@ -67,5 +68,22 @@ public class User {
 
     public int getRoleId() {
         return role_id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return role_id == user.role_id &&
+                first_name.equals(user.first_name) &&
+                Objects.equals(last_name, user.last_name) &&
+                getPhone().equals(user.getPhone()) &&
+                getPassword().equals(user.getPassword());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(first_name, last_name, getPhone(), getPassword(), role_id);
     }
 }
