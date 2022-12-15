@@ -14,7 +14,7 @@
 <jsp:include page="partial-pages/header.jsp" />
 
 <div class="container">
-  <h3 class="display-4">About Payment System</h3>
+  <h3 class="display-4 mb-5">About Payment System</h3>
   <p>This site was developed by <a href="https://github.com/kerrrusha" target="_blank">Kirill Koval</a>.</p>
   <p>It's not real payment system, it's just simulation. The system has no common with real money transfer and payments.</p>
   <p>This web application is a laboratory task for "Java Web Development" course on Kyiv Polytechnic Institute.</p>
