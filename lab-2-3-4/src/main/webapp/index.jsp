@@ -27,7 +27,7 @@
     <h3 class="mb-3">Here you can manage your money cards and billings.</h3>
     <hr>
     <div class="my-3">
-        <p>Your payment cards</p>
+        <p class="display-5">Your payment cards:</p>
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 d-flex flex-column">
             <li class="border d-flex flex-row justify-content-around align-items-center p-3" style="align-content: normal;">
                 <div class="d-flex flex-column align-items-center justify-content-start">
