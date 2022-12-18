@@ -61,7 +61,11 @@
                   </div>
 					
 					<div class="errors-block my-3" style="visibility: hidden;"></div>
-					
+
+                  <div class="my-3">
+                    <a href="${pageContext.request.contextPath}/signin">Already registered?</a>
+                  </div>
+
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                     <button type="button" onclick="processRegister('${pageContext.request.contextPath}/auth/register', '${pageContext.request.contextPath}/')" class="btn btn-primary btn-lg">Register</button>
                   </div>
