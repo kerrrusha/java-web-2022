@@ -35,7 +35,7 @@
                     <p class="display-6">5.50 $</p>
                     <p class="text-muted">Created at: 16.12.2022</p>
                 </div>
-                <div class="rounded border payment-card d-flex flex-column">
+                <div class="rounded border border-dark payment-card d-flex flex-column">
                     <div class="d-flex flex-row justify-content-between">
                         <p class="oncard secret">123</p>
                         <p class="oncard expiration-date">12.2024</p>
