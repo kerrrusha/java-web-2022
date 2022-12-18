@@ -11,7 +11,7 @@
 
     <style>
         .payment-card {
-            background-color: aquamarine; width: 220px; height: 100px;
+            background-color: aquamarine; width: 220px; height: 125px;
         }
         .oncard {
             background-color: #eeeeee;
@@ -33,14 +33,14 @@
                 <div class="d-flex flex-column align-items-center justify-content-start">
                     <h4>Universal card</h4>
                     <p class="display-6">5.50 $</p>
-                    <p class="text-muted">Created at: 16.12.2022</p>
+                    <p class="text-muted">Card opened: 16.12.2022</p>
                 </div>
                 <div class="rounded border border-dark payment-card d-flex flex-column">
-                    <div class="d-flex flex-row justify-content-between">
+                    <div class="d-flex flex-row justify-content-around mt-1">
                         <p class="oncard secret">123</p>
                         <p class="oncard expiration-date">12.2024</p>
                     </div>
-                    <p class="oncard number text-center">1234 5678 9101 1121</p>
+                    <p class="oncard number text-center mt-3">1234 5678 9101 1121</p>
                 </div>
                 <div class="d-flex flex-column align-items-center justify-content-start">
                     <a href="">Create billing</a>
