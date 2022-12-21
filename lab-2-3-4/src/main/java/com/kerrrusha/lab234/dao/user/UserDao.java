@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static com.kerrrusha.lab234.util.SqlUtil.mapToLocalDateTime;
+
 public class UserDao extends AbstractDao {
 
 	public UserDao() throws DBException {}
@@ -114,12 +116,5 @@ public class UserDao extends AbstractDao {
 		user.setUpdatedTime(mapToLocalDateTime(rs.getTimestamp(Fields.USER_UPDATED_TIME)));
 
 		return user;
-	}
-
-	private LocalDateTime mapToLocalDateTime(Timestamp timestamp) {
-		if (timestamp == null) {
-			return null;
-		}
-		return timestamp.toLocalDateTime();
 	}
 }
