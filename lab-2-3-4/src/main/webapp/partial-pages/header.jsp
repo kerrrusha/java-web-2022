@@ -6,6 +6,7 @@
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <li><a href="${pageContext.request.contextPath}/" class="nav-link px-2 link-dark">Home</a></li>
+            <li><a href="${pageContext.request.contextPath}/cabinet" class="nav-link px-2 link-dark">Cabinet</a></li>
             <li><a href="${pageContext.request.contextPath}/about" class="nav-link px-2 link-dark">About</a></li>
         </ul>
 
