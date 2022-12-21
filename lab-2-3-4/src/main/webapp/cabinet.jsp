@@ -19,13 +19,30 @@
   <h3 class="mb-3">Here you can check your payment profile information</h3>
   <hr>
   <div class="my-3">
-    <h5>First name: <span class="display-5">${sessionScope.user.getFirstName()}</span></h5>
-    <h5>Last name: <span class="display-5">${sessionScope.user.getLastName()}</span></h5>
-    <h5>Phone: <span class="display-5">${sessionScope.user.getPhone()}</span></h5>
-    <h5>Role: <span class="display-5">
-      ${requestScope.roleService.getRoleNameById(sessionScope.user.getRoleId())}
-    </span></h5>
-    <h5>Registered: <span class="display-5">${sessionScope.user.getCreatedTime()}</span></h5>
+    <table class="table">
+      <tbody>
+      <tr>
+        <th scope="row">First name: </th>
+        <td>${sessionScope.user.getFirstName()}</td>
+      </tr>
+      <tr>
+        <th scope="row">Last name: </th>
+        <td>${sessionScope.user.getLastName()}</td>
+      </tr>
+      <tr>
+        <th scope="row">Phone: </th>
+        <td>${sessionScope.user.getPhone()}</td>
+      </tr>
+      <tr>
+        <th scope="row">Role: </th>
+        <td>${requestScope.roleService.getRoleNameById(sessionScope.user.getRoleId())}</td>
+      </tr>
+      <tr>
+        <th scope="row">Registered: </th>
+        <td>${sessionScope.user.getCreatedTime()}</td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
