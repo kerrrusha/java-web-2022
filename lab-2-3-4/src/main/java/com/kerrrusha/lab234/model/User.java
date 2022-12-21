@@ -11,6 +11,7 @@ public class User {
     private String phone;
     private String password;
     private int role_id;
+
     private LocalDateTime created_time;
     private LocalDateTime updated_time;
 
@@ -72,6 +73,10 @@ public class User {
 
     public int getRoleId() {
         return role_id;
+    }
+
+    public LocalDateTime getCreatedTime() {
+        return created_time;
     }
 
     @Override
