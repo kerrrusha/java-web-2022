@@ -27,4 +27,3 @@ public class CabinetServlet extends HttpServlet {
         request.getRequestDispatcher("cabinet.jsp").forward(request, response);
     }
 }
-
