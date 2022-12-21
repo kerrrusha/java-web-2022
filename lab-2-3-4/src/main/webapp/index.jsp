@@ -44,6 +44,7 @@
                 </div>
                 <div class="d-flex flex-column align-items-center justify-content-start">
                     <a href="">Create billing</a>
+                    <a href="">Replenishment</a>
                     <a href="">Billing history</a>
                     <a href="">Block this card</a>
                 </div>
