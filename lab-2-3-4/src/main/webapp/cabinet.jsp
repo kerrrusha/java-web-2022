@@ -43,6 +43,10 @@
       </tr>
       </tbody>
     </table>
+    <div class="mt-3">
+      <a href="${pageContext.request.contextPath}/moneycards">Your money cards info</a>
+      <a href="${pageContext.request.contextPath}/billings">Your billings</a>
+    </div>
   </div>
 </div>
 
