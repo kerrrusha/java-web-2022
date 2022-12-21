@@ -3,7 +3,6 @@ package com.kerrrusha.lab234.service.auth;
 import com.kerrrusha.lab234.dao.DBException;
 import com.kerrrusha.lab234.dao.user.UserDao;
 import com.kerrrusha.lab234.model.User;
-import com.kerrrusha.lab234.service.auth.result.AuthResult;
 import com.kerrrusha.lab234.validator.AbstractValidator;
 import com.kerrrusha.lab234.validator.auth.LoginValidator;
 import org.apache.http.HttpStatus;
