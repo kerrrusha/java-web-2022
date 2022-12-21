@@ -1,4 +1,4 @@
-package dao;
+package com.kerrrusha.lab234;
 
 import com.kerrrusha.lab234.dao.DBException;
 import com.kerrrusha.lab234.dao.user.UserDao;
