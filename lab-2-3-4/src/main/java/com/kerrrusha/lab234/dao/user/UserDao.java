@@ -7,7 +7,6 @@ import com.kerrrusha.lab234.dao.user.constant.Fields;
 import com.kerrrusha.lab234.dao.user.constant.Queries;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 
