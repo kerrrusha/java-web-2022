@@ -2,7 +2,7 @@ package com.kerrrusha.lab234.controller.auth;
 
 import com.kerrrusha.lab234.service.auth.AuthResultSender;
 import com.kerrrusha.lab234.service.auth.LoginService;
-import com.kerrrusha.lab234.service.auth.result.AuthResult;
+import com.kerrrusha.lab234.service.auth.AuthResult;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
