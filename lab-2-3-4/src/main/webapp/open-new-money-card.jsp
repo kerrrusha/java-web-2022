@@ -15,9 +15,17 @@
 <jsp:include page="partial-pages/header.jsp" />
 
 <div class="container">
-  <p>You already have opened ${requestScope.moneyCardService.getUserActiveCardsAmount()} of ${requestScope.getMaxAllowedActiveCardsAmount()} cards.</p>
+  <p>You already have opened ${requestScope.moneyCardService.getUserActiveCardsAmount()} of ${requestScope.getMaxActiveCardsAllowedAmount()} cards.</p>
   <hr>
-  <button class="button">Open new money card</button>
+
+  <input type="text" id="moneyAccountName" class="form-control" value="Standart" onchange="updateButtonStatus()"/>
+  <label class="form-label" for="moneyAccountName">New Money Account name</label>
+
+  <button class="button mt-3" onclick="sendOpenNewCardRequest(${sessionScope.user.getId()}, window.location.href)">Open new money card</button>
+
+  <div id="result" class="mt-3">
+
+  </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
