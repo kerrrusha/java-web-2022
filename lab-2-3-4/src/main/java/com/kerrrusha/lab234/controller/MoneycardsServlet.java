@@ -2,7 +2,7 @@ package com.kerrrusha.lab234.controller;
 
 import com.kerrrusha.lab234.dao.DBException;
 import com.kerrrusha.lab234.model.User;
-import com.kerrrusha.lab234.service.MoneyCardService;
+import com.kerrrusha.lab234.service.moneycard.MoneyCardService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
