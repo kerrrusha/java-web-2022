@@ -1,4 +1,4 @@
-package com.kerrrusha.lab234.service.auth.result;
+package com.kerrrusha.lab234.service.auth;
 
 import com.kerrrusha.lab234.model.User;
 
@@ -32,9 +32,5 @@ public class AuthResult {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public boolean isOK() {
-		return status == 200;
 	}
 }
