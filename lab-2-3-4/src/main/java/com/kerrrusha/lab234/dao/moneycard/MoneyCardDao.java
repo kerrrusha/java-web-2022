@@ -39,7 +39,7 @@ public class MoneyCardDao extends AbstractDao {
 	public MoneyCard findOneByUserIdAndSecretAndNumber(int userId, String secret, String number) throws DBException {
 		MoneyCard entity = null;
 		try (Connection con = DriverManager.getConnection(FULL_URL);
-			 PreparedStatement stmt = con.prepareStatement(Queries.FIND_MONEY_ACCOUNT_BY_USER_ID_AND_NAME)) {
+			 PreparedStatement stmt = con.prepareStatement(Queries.FIND_MONEY_CARD_BY_USER_ID_AND_SECRET_AND_NUMBER)) {
 			stmt.setInt(1, userId);
 			stmt.setString(2, secret);
 			stmt.setString(3, number);
@@ -61,6 +61,23 @@ public class MoneyCardDao extends AbstractDao {
 			 PreparedStatement stmt = con.prepareStatement(Queries.FIND_MONEY_ACCOUNT_BY_USER_ID_AND_NAME)) {
 			stmt.setInt(1, userId);
 			stmt.setString(2, name);
+			try (ResultSet rs = stmt.executeQuery()) {
+				if (rs.next()) {
+					moneyAccount = mapToMoneyAccount(rs);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e.getMessage());
+		}
+		return moneyAccount;
+	}
+
+	public MoneyAccount findMoneyAccountById(int moneyAccountId) throws DBException {
+		MoneyAccount moneyAccount = null;
+		try (Connection con = DriverManager.getConnection(FULL_URL);
+			 PreparedStatement stmt = con.prepareStatement(Queries.FIND_MONEY_ACCOUNT_BY_ID)) {
+			stmt.setInt(1, moneyAccountId);
 			try (ResultSet rs = stmt.executeQuery()) {
 				if (rs.next()) {
 					moneyAccount = mapToMoneyAccount(rs);
