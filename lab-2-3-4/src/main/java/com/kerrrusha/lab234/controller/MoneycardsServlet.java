@@ -16,15 +16,19 @@ public class MoneycardsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        MoneyCardService moneyCardService;
+        request.getRequestDispatcher("moneycards.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            moneyCardService = new MoneyCardService((User)request.getSession().getAttribute("user"));
+            MoneyCardService moneyCardService = new MoneyCardService((User)request.getSession().getAttribute("user"));
+            final String json = moneyCardService.getUserMoneycardsViewModelJson();
+            response.setContentType("application/json");
+            response.getWriter().print(json);
         } catch (DBException e) {
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
-            return;
         }
-        request.setAttribute("moneyCardService", moneyCardService);
-        request.getRequestDispatcher("moneycards.jsp").forward(request, response);
     }
 }
