@@ -99,12 +99,11 @@ public class MoneyCard implements Serializable {
         this.updated_time = updated_time;
     }
 
-    public MoneyCard createWithNumberFromId() {
+    public void setNumberFromId() {
         if (getId() == 0) {
-            return null;
+            return;
         }
         String cardNumber = createNumber(getId());
         setNumber(cardNumber);
-        return new MoneyCard(this);
     }
 }
