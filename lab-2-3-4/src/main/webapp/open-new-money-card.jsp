@@ -15,13 +15,18 @@
 <jsp:include page="partial-pages/header.jsp" />
 
 <div class="container">
-  <p>You already have opened ${requestScope.moneyCardService.getUserActiveCardsAmount()} of ${requestScope.getMaxActiveCardsAllowedAmount()} cards.</p>
+  <p>You have already opened ${requestScope.moneyCardService.getUserActiveCardsAmount()} of ${requestScope.moneyCardService.getMaxActiveCardsAllowedAmount()} cards.</p>
   <hr>
 
-  <input type="text" id="moneyAccountName" class="form-control" value="Standart" onchange="updateButtonStatus()"/>
-  <label class="form-label" for="moneyAccountName">New Money Account name</label>
+  <div class="form-outline flex-fill">
+    <input type="text" id="moneyAccountName" class="form-control" value="Standard" oninput="updateButtonStatus()"/>
+    <label class="form-label" for="moneyAccountName">New Money Account name</label>
+  </div>
 
-  <button class="button mt-3" onclick="sendOpenNewCardRequest(${sessionScope.user.getId()}, window.location.href)">Open new money card</button>
+  <button class="btn btn-outline-success mt-3" id="postButton"
+          onclick="sendOpenNewCardRequest(window.location.href)">
+    Open new money card
+  </button>
 
   <div id="result" class="mt-3">
 
@@ -31,5 +36,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+
+<script src="${pageContext.request.contextPath}/js/open-new-money-card.js"></script>
+
 </body>
 </html>
