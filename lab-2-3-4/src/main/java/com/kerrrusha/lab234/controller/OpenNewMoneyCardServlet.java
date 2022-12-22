@@ -33,7 +33,6 @@ public class OpenNewMoneyCardServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         final String moneyAccountName = request.getParameter("moneyAccountName");
-
         try {
             MoneyCardService moneyCardService = new MoneyCardService((User)request.getSession().getAttribute("user"));
             OpenMoneyCardResult result = moneyCardService.openNewMoneyCard(moneyAccountName);
