@@ -21,33 +21,28 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">#</th>
+                <th scope="col">Money account ID</th>
+                <th scope="col">Money account name</th>
+                <th scope="col">Card number</th>
                 <th scope="col">Balance</th>
-                <th scope="col">Number</th>
-                <th scope="col">Name</th>
                 <th scope="col">Expiration date</th>
             </tr>
             </thead>
             <tbody id="moneyCardsTableBody">
-            <tr>
-                <th scope="row"></th>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+
             </tbody>
         </table>
     </div>
 </div>
 
-<script src="js/moneycards.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 
+<script src="${pageContext.request.contextPath}/js/moneycards.js"></script>
 <script>
-    loadData(${requestScope.moneyCardService.getUserMoneyCards()});
+    loadData();
 </script>
+
 </body>
 </html>
