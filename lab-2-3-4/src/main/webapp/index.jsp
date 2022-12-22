@@ -27,9 +27,9 @@
     <h3 class="mb-3">Here you can manage your money cards and billings.</h3>
     <hr>
     <div class="my-3">
-        <div class="d-flex flex-row justify-content-space-between">
+        <div class="d-flex flex-row justify-content-between align-items-center">
             <p class="display-5">Your payment cards:</p>
-            <a href="${pageContext.request.contextPath}/open-new-money-card">Open new money card</a>
+            <a class="btn btn-outline-success" href="${pageContext.request.contextPath}/open-new-money-card">Open new money card</a>
         </div>
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 d-flex flex-column">
             <li class="border d-flex flex-row justify-content-around align-items-center p-3" style="align-content: normal;">
