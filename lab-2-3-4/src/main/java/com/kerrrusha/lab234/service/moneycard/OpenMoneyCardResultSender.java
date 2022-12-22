@@ -1,6 +1,7 @@
 package com.kerrrusha.lab234.service.moneycard;
 
 import com.google.gson.Gson;
+import com.kerrrusha.lab234.factory.GsonFactory;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -9,7 +10,7 @@ import static com.kerrrusha.lab234.util.ServletUtil.setJsonToResponse;
 
 public class OpenMoneyCardResultSender extends OpenMoneyCardResult {
 
-	private final Gson gson = new Gson();
+	private final Gson gson = GsonFactory.create();
 
 	public static OpenMoneyCardResultSender valueOf(OpenMoneyCardResult anotherResult) {
 		OpenMoneyCardResultSender sender = new OpenMoneyCardResultSender();
