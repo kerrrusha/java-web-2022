@@ -10,6 +10,7 @@ public class Queries {
 			"WHERE money_account_id in (select id FROM `money_account` " +
 			"WHERE owner_user_id = (select id from `user` where id = ?)) and secret = ? and number = ?";
 	public static final String FIND_MONEY_ACCOUNT_BY_ID = "SELECT * FROM `money_account` WHERE id = ?";
+	public static final String FIND_MONEY_CARD_BY_MONEY_ACCOUNT_ID = "SELECT * FROM `money_card` WHERE money_account_id = ?";
 
 	public static final String INSERT_MONEY_CARD = "INSERT INTO " +
 			"`money_card`(money_account_id, number, expiration_date, secret, balance) " +
