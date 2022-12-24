@@ -128,4 +128,12 @@ public class MoneyCardService {
 
         return insertedMoneyCard;
     }
+
+    public MoneyAccount getMoneyAccountById(int fromMoneyAccountId) throws DBException {
+        return new MoneyCardDao().findMoneyAccountById(fromMoneyAccountId);
+    }
+
+    public MoneyCard getMoneyCardByMoneyAccountId(int fromMoneyAccountId) throws DBException {
+        return new MoneyCardDao().findByMoneyAccountId(fromMoneyAccountId);
+    }
 }
