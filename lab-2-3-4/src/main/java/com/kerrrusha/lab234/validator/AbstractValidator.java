@@ -10,6 +10,8 @@ import static java.util.stream.Collectors.toCollection;
 
 public abstract class AbstractValidator {
 
+	protected static final String DATABASE_ERROR = "Something is wrong with the server. We will definitely fix this, but for now, please try again.";
+
 	private final Collection<Optional<String>> possibleErrors;
 
 	public AbstractValidator() {
@@ -18,7 +20,11 @@ public abstract class AbstractValidator {
 
 	protected abstract void validate();
 
-	public abstract Collection<String> getErrors();
+	public Collection<String> getErrors() {
+		clearPossibleErrors();
+		validate();
+		return getErrorPool();
+	}
 
 	protected final Collection<String> getErrorPool() {
 		return possibleErrors.stream()
