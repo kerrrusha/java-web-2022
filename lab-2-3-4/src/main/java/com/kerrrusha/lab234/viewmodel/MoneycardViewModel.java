@@ -8,7 +8,9 @@ public class MoneycardViewModel {
     private String moneyAccountName;
     private String moneyCardNumber;
     private int balance;
+    private String secret;
     private LocalDate expirationDate;
+    private LocalDate openedDate;
 
     public void setMoneyAccountId(int moneyAccountId) {
         this.moneyAccountId = moneyAccountId;
@@ -26,7 +28,15 @@ public class MoneycardViewModel {
         this.balance = balance;
     }
 
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
     public void setExpirationDate(LocalDate expirationDate) {
         this.expirationDate = expirationDate;
+    }
+
+    public void setOpenedDate(LocalDate openedDate) {
+        this.openedDate = openedDate;
     }
 }
