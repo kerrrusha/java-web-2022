@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/", "/about", "/cabinet", "/open-new-money-card", "/moneycards"}, description = "Redirect all not authorized requests to /signin")
+@WebFilter(urlPatterns = {"/", "/about", "/cabinet", "/open-new-money-card", "/moneycards", "/create-billing"}, description = "Redirect all not authorized requests to /signin")
 public class NotAuthorizedRequestsFilter implements Filter {
 
 	private static final Logger logger = Logger.getLogger(NotAuthorizedRequestsFilter.class);
