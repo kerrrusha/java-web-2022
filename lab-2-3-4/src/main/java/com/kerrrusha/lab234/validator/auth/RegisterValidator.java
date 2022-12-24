@@ -13,12 +13,11 @@ import static java.lang.Character.isDigit;
 
 public class RegisterValidator extends AbstractValidator {
 
+	public static final String PHONE_ALREADY_EXISTS = "Such phone already exists.";
 	private static final String INCORRECT_FIRST_NAME = "First name must be 3 symbols at least.";
 	private static final String INCORRECT_LAST_NAME = "Last name must be 3 symbols at least.";
 	private static final String INCORRECT_PHONE = "Phone must be in format like '+380123456789'.";
 	private static final String INCORRECT_PASSWORD = "Password must be at least 3 characters long and must not contain spaces.";
-	private static final String DATABASE_ERROR = "Something is wrong with the server. We will definitely fix this, but for now, please try again.";
-	public static final String PHONE_ALREADY_EXISTS = "Such phone already exists.";
 	private static final String PASSWORDS_DO_NOT_MATCHES = "Passwords don't match.";
 	private static final String IS_NULL_TEMPLATE = "Something is wrong while submitting %s to the server. We will definitely fix this, but for now, please try again.";
 	private static final String FIRST_NAME_IS_NULL = String.format(IS_NULL_TEMPLATE, "first name");
@@ -53,13 +52,6 @@ public class RegisterValidator extends AbstractValidator {
 		addPossibleError(validatePhone());
 		addPossibleError(validatePasswords());
 		addPossibleError(validateIfExists());
-	}
-
-	@Override
-	public Collection<String> getErrors() {
-		clearPossibleErrors();
-		validate();
-		return getErrorPool();
 	}
 
 	private Optional<String> validateFirstName() {
