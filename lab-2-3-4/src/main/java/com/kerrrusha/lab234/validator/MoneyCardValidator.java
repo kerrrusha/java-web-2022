@@ -20,13 +20,6 @@ public class MoneyCardValidator extends AbstractValidator {
     }
 
     @Override
-    public Collection<String> getErrors() {
-        clearPossibleErrors();
-        validate();
-        return getErrorPool();
-    }
-
-    @Override
     protected void validate() {
         addPossibleError(checkIfFieldIsNull(name, NAME_IS_NULL));
         addPossibleError(validateLength());
