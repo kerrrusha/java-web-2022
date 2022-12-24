@@ -43,5 +43,14 @@ public class CreateBillingServlet extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         final String fromMoneyAccountId = request.getParameter("fromMoneyAccountId");
         final String toMoneyCardNumber = request.getParameter("toMoneyCardNumber");
+        final String moneyAmount = request.getParameter("moneyAmount");
+        final User user = (User)request.getSession().getAttribute("user");
+        try {
+            MoneyCardService moneyCardService = new MoneyCardService(user);
+
+        } catch (DBException e) {
+            request.setAttribute("error", e.getMessage());
+            request.getRequestDispatcher("error.jsp").forward(request, response);
+        }
     }
 }
