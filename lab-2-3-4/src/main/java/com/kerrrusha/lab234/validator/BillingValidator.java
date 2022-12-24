@@ -2,17 +2,20 @@ package com.kerrrusha.lab234.validator;
 
 import com.kerrrusha.lab234.dao.DBException;
 import com.kerrrusha.lab234.dao.moneycard.MoneyCardDao;
+import com.kerrrusha.lab234.model.MoneyAccount;
 import com.kerrrusha.lab234.model.User;
 
 import java.util.Optional;
 
 import static com.kerrrusha.lab234.util.ValidatorUtil.checkIfFieldIsNull;
+import static java.util.Objects.isNull;
 
 public class BillingValidator extends AbstractValidator {
 
     private static final String USER_IS_NULL = "Something with current authorization session. We will definitely fix this, but for now, please try again.";
-    private static final String RESTRICTED_MONEY_ACCOUNT = "Such money account does not exists or don't belongs to you.";
+    private static final String RESTRICTED_MONEY_ACCOUNT = "Such money account does not belongs to you.";
     private static final String INVALID_MONEY_ACCOUNT_ID = "Money account id must be greater than 0.";
+    private static final String MONEY_ACCOUNT_DOES_NOT_EXISTS = "Such money account does not exists.";
 
     private final User user;
     private final int fromMoneyAccountId;
@@ -31,7 +34,11 @@ public class BillingValidator extends AbstractValidator {
 
     private Optional<String> validateThatMoneyAccountIdBelongsToUser() {
         try {
-            return new MoneyCardDao().findMoneyAccountById(fromMoneyAccountId).getOwnerUserId() == user.getId()
+            MoneyAccount moneyAccount = new MoneyCardDao().findMoneyAccountById(fromMoneyAccountId);
+            if (isNull(moneyAccount)) {
+                return Optional.of(MONEY_ACCOUNT_DOES_NOT_EXISTS);
+            }
+            return moneyAccount.getOwnerUserId() == user.getId()
                     ? Optional.empty()
                     : Optional.of(RESTRICTED_MONEY_ACCOUNT);
         } catch (DBException e) {
