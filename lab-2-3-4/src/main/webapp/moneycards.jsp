@@ -17,6 +17,17 @@
 <div class="container">
     <h1 class="display-4">Money accounts info</h1>
     <hr>
+    <div class="d-flex flex-row justify-content-between align-items-center">
+        <p>Sort content by:</p>
+        <select class="form-select form-select-sm" id="sortType" onchange="updateSorting()" style="width: auto;">
+            <option value="id-asc" selected>Money account ID (asc)</option>
+            <option value="id-desc">Money account ID (desc)</option>
+            <option value="name-asc">Money account name (asc)</option>
+            <option value="name-desc">Money account name (desc)</option>
+            <option value="balance-asc">Balance (asc)</option>
+            <option value="balance-desc">Balance (desc)</option>
+        </select>
+    </div>
     <div class="my-3">
         <table class="table">
             <thead>
