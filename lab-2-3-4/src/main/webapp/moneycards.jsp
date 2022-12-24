@@ -15,7 +15,7 @@
 <jsp:include page="partial-pages/header.jsp" />
 
 <div class="container">
-    <h1 class="display-4">Money cards info</h1>
+    <h1 class="display-4">Money accounts info</h1>
     <hr>
     <div class="my-3">
         <table class="table">
