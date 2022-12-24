@@ -5,14 +5,12 @@ import com.kerrrusha.lab234.dao.user.UserDao;
 import com.kerrrusha.lab234.model.User;
 import com.kerrrusha.lab234.validator.AbstractValidator;
 
-import java.util.Collection;
 import java.util.Optional;
 
 import static com.kerrrusha.lab234.util.ValidatorUtil.checkIfFieldIsNull;
 
 public class LoginValidator extends AbstractValidator {
 
-	private static final String DATABASE_ERROR = "Something is wrong with the server. We will definitely fix this, but for now, please try again.";
 	private static final String INVALID_PHONE = "Such login does not exists.";
 	private static final String INVALID_PASSWORD = "Password is invalid.";
 	private static final String PHONE_IS_NULL = "Something is wrong while submitting login to the server. We will definitely fix this, but for now, please try again.";
@@ -31,13 +29,6 @@ public class LoginValidator extends AbstractValidator {
 		addPossibleError(checkIfFieldIsNull(phone, PHONE_IS_NULL));
 		addPossibleError(checkIfFieldIsNull(password, PASSWORD_IS_NULL));
 		addPossibleError(validateUser());
-	}
-
-	@Override
-	public Collection<String> getErrors() {
-		clearPossibleErrors();
-		validate();
-		return getErrorPool();
 	}
 
 	private Optional<String> validateUser() {
