@@ -1,7 +1,12 @@
+document.addEventListener("DOMContentLoaded", function() {
+    updateButtonStatus();
+});
+
 function sendCreateNewBillingRequest(postUrl) {
     let cardNumber = $("#recipient-card-number").val();
-    let moneyAccountId = new URLSearchParams(window.location.search).get("fromMoneyAccountId");
-    let data = "fromMoneyAccountId="+moneyAccountId+"&toMoneyCardNumber="+cardNumber;
+    let moneyAmount = $("#money-amount").val();
+    let fromMoneyAccountId = new URLSearchParams(window.location.search).get("fromMoneyAccountId");
+    let data = "fromMoneyAccountId="+fromMoneyAccountId+"&toMoneyCardNumber="+cardNumber+"&moneyAmount="+moneyAmount;
     $.ajax({
         type: "POST",
         url: postUrl,
