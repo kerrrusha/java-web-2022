@@ -47,8 +47,10 @@ public class MoneyCardService {
 
             viewModel.setMoneyCardNumber(moneyCard.getNumber());
             viewModel.setBalance(moneyCard.getBalance());
+            viewModel.setSecret(moneyCard.getSecret());
             viewModel.setMoneyAccountId(moneyCard.getMoneyAccountId());
             viewModel.setExpirationDate(moneyCard.getExpirationDate());
+            viewModel.setOpenedDate(moneyCard.getCreatedTime().toLocalDate());
             viewModel.setMoneyAccountName(moneyCardDao.findMoneyAccountById(moneyCard.getMoneyAccountId()).getName());
 
             viewModels.add(viewModel);
@@ -61,13 +63,11 @@ public class MoneyCardService {
         return moneyCardDao.findByUserId(user.getId());
     }
 
-    public int getUserActiveCardsAmount() throws DBException {
-        return (int) getUserMoneyCards().stream()
-                .filter(MoneyCard::isActive)
-                .count();
+    public int getUserCardsAmount() throws DBException {
+        return getUserMoneyCards().size();
     }
 
-    public int getMaxActiveCardsAllowedAmount() {
+    public int getMaxCardsAllowedAmount() {
         return maxActiveCardsAllowedAmount;
     }
 
@@ -76,7 +76,7 @@ public class MoneyCardService {
         AbstractValidator validator = new MoneyCardValidator(name);
 
         try {
-            if (getUserActiveCardsAmount() >= getMaxActiveCardsAllowedAmount()) {
+            if (getUserCardsAmount() >= getMaxCardsAllowedAmount()) {
                 result.setStatus(HttpStatus.SC_CONFLICT);
                 result.setErrorPool(singletonList(MAX_CARDS_AMOUNT_ERROR));
                 return result;

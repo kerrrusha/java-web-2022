@@ -31,10 +31,6 @@ public class MoneyCard implements Serializable {
         this.updated_time = other.getUpdatedTime();
     }
 
-    public boolean isActive() {
-        return expiration_date.isAfter(LocalDateTime.now().toLocalDate());
-    }
-
     public LocalDateTime getCreatedTime() {
         return created_time;
     }
