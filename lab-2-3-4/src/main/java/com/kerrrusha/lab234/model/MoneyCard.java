@@ -102,4 +102,21 @@ public class MoneyCard implements Serializable {
         String cardNumber = createNumber(getId());
         setNumber(cardNumber);
     }
+
+    public String getPrettyBalanceString() {
+        int dollars = removeDigitsAfterComma(balance / 100F);
+        int cents = balance - dollars * 100;
+        return dollars + "." + toCentsFormat(cents) + " $";
+    }
+
+    private String toCentsFormat(int cents) {
+        if (cents < 10) {
+            return "0" + cents;
+        }
+        return "" + cents;
+    }
+
+    private int removeDigitsAfterComma(double value) {
+        return (int) value;
+    }
 }
