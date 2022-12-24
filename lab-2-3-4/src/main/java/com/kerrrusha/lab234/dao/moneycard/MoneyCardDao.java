@@ -90,6 +90,23 @@ public class MoneyCardDao extends AbstractDao {
 		return moneyAccount;
 	}
 
+	public MoneyCard findByMoneyAccountId(int moneyAccountId) throws DBException {
+		MoneyCard entity = null;
+		try (Connection con = DriverManager.getConnection(FULL_URL);
+			 PreparedStatement stmt = con.prepareStatement(Queries.FIND_MONEY_CARD_BY_MONEY_ACCOUNT_ID)) {
+			stmt.setInt(1, moneyAccountId);
+			try (ResultSet rs = stmt.executeQuery()) {
+				if (rs.next()) {
+					entity = mapToEntity(rs);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e.getMessage());
+		}
+		return entity;
+	}
+
 	public void insert(MoneyCard entity) throws DBException {
 		try (Connection con = DriverManager.getConnection(FULL_URL);
 			 PreparedStatement stmt = con.prepareStatement(Queries.INSERT_MONEY_CARD)) {
