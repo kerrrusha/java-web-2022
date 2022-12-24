@@ -44,7 +44,7 @@
       </tbody>
     </table>
     <div class="mt-3 d-flex flex-column align-items-center">
-      <a href="${pageContext.request.contextPath}/moneycards">Your money cards info</a>
+      <a href="${pageContext.request.contextPath}/moneycards">Your money accounts info</a>
       <a href="${pageContext.request.contextPath}/billings">Your billings</a>
     </div>
   </div>
