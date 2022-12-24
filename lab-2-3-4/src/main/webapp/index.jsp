@@ -10,9 +10,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <style>
-        .payment-card {
-            background-color: aquamarine; width: 220px; height: 125px;
-        }
         .oncard {
             background-color: #eeeeee;
         }
@@ -31,6 +28,7 @@
             <p class="display-5">Your payment cards:</p>
             <a class="btn btn-outline-success" href="${pageContext.request.contextPath}/open-new-money-card">Open new money card</a>
         </div>
+        <div id="create-billing-base-url" style="display: none;">${pageContext.request.contextPath}/create-billing?fromMoneyAccountId=</div>
         <ul id="card-list" class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 d-flex flex-column">
 
         </ul>
