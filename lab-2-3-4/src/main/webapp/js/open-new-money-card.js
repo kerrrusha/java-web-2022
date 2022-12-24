@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", function() {
+    updateButtonStatus();
+});
+
 function sendOpenNewCardRequest(postUrl) {
     let moneyAccountName = $("#moneyAccountName").val();
     let data = "moneyAccountName="+moneyAccountName;
