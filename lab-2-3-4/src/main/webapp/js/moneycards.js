@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", function(event) {
+    loadData();
+});
+
 function loadData() {
     $.ajax({
         type: "POST",
