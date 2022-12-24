@@ -15,7 +15,7 @@
 <jsp:include page="partial-pages/header.jsp" />
 
 <div class="container">
-  <p>You have already opened ${requestScope.moneyCardService.getUserActiveCardsAmount()} of ${requestScope.moneyCardService.getMaxActiveCardsAllowedAmount()} cards.</p>
+  <p>You have already opened ${requestScope.moneyCardService.getUserCardsAmount()} of ${requestScope.moneyCardService.getMaxCardsAllowedAmount()} cards.</p>
   <hr>
 
   <div class="form-outline flex-fill">
