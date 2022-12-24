@@ -14,7 +14,7 @@
 
 <jsp:include page="partial-pages/header.jsp" />
 
-<div class="container d-flex flex-column align-items-center">
+<div class="container d-flex flex-column align-items-center justify-content-center">
   <p>You are creating new billing from <span class="h5">${requestScope.moneyAccount.getName()} card</span> (${requestScope.moneyCard.getPrettyBalanceString()})</p>
   <hr>
 
@@ -22,7 +22,12 @@
     <div class="d-flex flex-row justify-content-around mt-1">
       <p class="oncard">Recipient's card number:</p>
     </div>
-    <input class="text-center" oninput="updateButtonStatus()" type="text" id="recipient-card-number"/>
+    <input class="text-center" maxlength="16" oninput="updateButtonStatus()" type="text" id="recipient-card-number"/>
+  </div>
+
+  <div class="form-outline flex-fill mt-2">
+    <input type="number" id="money-amount" min="0" max="999999" value="0.00" step="0.1" class="form-control" />
+    <label class="form-label" for="money-amount">Money amount ($)</label>
   </div>
 
   <button class="btn btn-outline-success mt-3" id="postButton"
