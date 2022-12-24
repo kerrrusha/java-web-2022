@@ -31,27 +31,8 @@
             <p class="display-5">Your payment cards:</p>
             <a class="btn btn-outline-success" href="${pageContext.request.contextPath}/open-new-money-card">Open new money card</a>
         </div>
-        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 d-flex flex-column">
-            <li class="border d-flex flex-row justify-content-around align-items-center p-3" style="align-content: normal;">
-                <div class="d-flex flex-column align-items-center justify-content-start">
-                    <h4>Universal card</h4>
-                    <p class="display-6">5.50 $</p>
-                    <p class="text-muted">Card opened: 16.12.2022</p>
-                </div>
-                <div class="rounded border border-dark payment-card d-flex flex-column">
-                    <div class="d-flex flex-row justify-content-around mt-1">
-                        <p class="oncard secret">123</p>
-                        <p class="oncard expiration-date">12.2024</p>
-                    </div>
-                    <p class="oncard number text-center mt-3">1234 5678 9101 1121</p>
-                </div>
-                <div class="d-flex flex-column align-items-center justify-content-start">
-                    <a href="">Create billing</a>
-                    <a href="">Replenishment</a>
-                    <a href="">Billing history</a>
-                    <a href="">Block this card</a>
-                </div>
-            </li>
+        <ul id="card-list" class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 d-flex flex-column">
+
         </ul>
     </div>
 </div>
@@ -59,5 +40,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+
+<script src="${pageContext.request.contextPath}/js/index.js"></script>
+
 </body>
 </html>
