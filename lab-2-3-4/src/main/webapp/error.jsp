@@ -12,7 +12,7 @@
 </head>
 <body class="vh-100" style="background-color: #eee;">
 
-<div class="container">
+<div class="container py-5">
   <h1 class="display-4">Something went wrong...</h1>
   <hr>
   <p>${requestScope.error}</p>
