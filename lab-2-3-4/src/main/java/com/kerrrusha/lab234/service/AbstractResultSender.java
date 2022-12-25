@@ -1,8 +1,7 @@
-package com.kerrrusha.lab234.service.moneycard;
+package com.kerrrusha.lab234.service;
 
 import com.google.gson.Gson;
 import com.kerrrusha.lab234.factory.GsonFactory;
-import com.kerrrusha.lab234.service.AbstractResult;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
