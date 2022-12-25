@@ -1,7 +1,7 @@
 package com.kerrrusha.lab234.factory;
 
 import com.kerrrusha.lab234.service.AbstractResult;
-import com.kerrrusha.lab234.service.moneycard.AbstractResultSender;
+import com.kerrrusha.lab234.service.AbstractResultSender;
 
 import static java.util.Collections.singletonList;
 
