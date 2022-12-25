@@ -1,4 +1,4 @@
-package com.kerrrusha.lab234.service.moneycard;
+package com.kerrrusha.lab234.service.moneycard.result.open_new_card;
 
 import com.google.gson.Gson;
 import com.kerrrusha.lab234.factory.GsonFactory;
