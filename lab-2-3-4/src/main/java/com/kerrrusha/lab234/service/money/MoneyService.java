@@ -1,4 +1,4 @@
-package com.kerrrusha.lab234.service.moneycard;
+package com.kerrrusha.lab234.service.money;
 
 import com.google.gson.Gson;
 import com.kerrrusha.lab234.dao.DBException;
@@ -6,15 +6,13 @@ import com.kerrrusha.lab234.dao.billing.BillingDao;
 import com.kerrrusha.lab234.dao.moneycard.MoneyCardDao;
 import com.kerrrusha.lab234.factory.GsonFactory;
 import com.kerrrusha.lab234.factory.MoneyCardFactory;
-import com.kerrrusha.lab234.model.Billing;
-import com.kerrrusha.lab234.model.MoneyAccount;
-import com.kerrrusha.lab234.model.MoneyCard;
-import com.kerrrusha.lab234.model.User;
-import com.kerrrusha.lab234.service.moneycard.result.billing.BillingResult;
-import com.kerrrusha.lab234.service.moneycard.result.open_new_card.OpenMoneyCardResult;
+import com.kerrrusha.lab234.model.*;
+import com.kerrrusha.lab234.service.money.result.billing.BillingResult;
+import com.kerrrusha.lab234.service.money.result.open_new_card.OpenMoneyCardResult;
 import com.kerrrusha.lab234.validator.AbstractValidator;
 import com.kerrrusha.lab234.validator.BillingValidator;
 import com.kerrrusha.lab234.validator.MoneyCardValidator;
+import com.kerrrusha.lab234.viewmodel.BillingViewModel;
 import com.kerrrusha.lab234.viewmodel.MoneycardViewModel;
 import org.apache.http.HttpStatus;
 
@@ -50,6 +48,10 @@ public class MoneyService {
         return gson.toJson(buildMoneycardsViewModel());
     }
 
+    public String getUserBillingsViewModelJson() throws DBException {
+        return gson.toJson(buildBillingsViewModel());
+    }
+
     private Collection<MoneycardViewModel> buildMoneycardsViewModel() throws DBException {
         Collection<MoneycardViewModel> viewModels = new ArrayList<>();
 
@@ -69,6 +71,33 @@ public class MoneyService {
         }
 
         return viewModels;
+    }
+
+    private Collection<BillingViewModel> buildBillingsViewModel() throws DBException {
+        Collection<BillingViewModel> viewModels = new ArrayList<>();
+
+        Collection<Billing> userBillins = getUserBillings();
+        for (Billing billing : userBillins) {
+            BillingViewModel viewModel = new BillingViewModel();
+            MoneyCard fromMoneyCard = moneyCardDao.findMoneyCardById(billing.getFromMoneyCardId());
+            MoneyCard toMoneyCard = moneyCardDao.findMoneyCardById(billing.getToMoneyCardId());
+            BillingStatus billingStatus = billingDao.findBillingStatusById(billing.getBillingStatusId());
+
+            viewModel.setBillingId(billing.getId());
+            viewModel.setMoneyAmount(billing.getMoneyAmount());
+            viewModel.setFromCardNumber(fromMoneyCard.getNumber());
+            viewModel.setToCardNumber(toMoneyCard.getNumber());
+            viewModel.setStatusName(billingStatus.getName());
+            viewModel.setCreatedTime(billing.getCreatedTime());
+
+            viewModels.add(viewModel);
+        }
+
+        return viewModels;
+    }
+
+    private Collection<Billing> getUserBillings() throws DBException {
+        return billingDao.findBillingsByUserId(user.getId());
     }
 
     private Collection<MoneyCard> getUserMoneyCards() throws DBException {
