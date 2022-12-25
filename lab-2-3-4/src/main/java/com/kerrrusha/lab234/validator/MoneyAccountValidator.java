@@ -10,17 +10,17 @@ import java.util.Optional;
 import static com.kerrrusha.lab234.util.ValidatorUtil.checkIfFieldIsNull;
 import static java.util.Objects.isNull;
 
-public class BillingValidator extends AbstractValidator {
+public class MoneyAccountValidator extends AbstractValidator {
 
-    private static final String USER_IS_NULL = "Something with current authorization session. We will definitely fix this, but for now, please try again.";
+    private static final String USER_IS_NULL = "Something is wrong with current authorization session. We will definitely fix this, but for now, please try again.";
     private static final String RESTRICTED_MONEY_ACCOUNT = "Such money account does not belongs to you.";
     private static final String INVALID_MONEY_ACCOUNT_ID = "Money account id must be greater than 0.";
     private static final String MONEY_ACCOUNT_DOES_NOT_EXISTS = "Such money account does not exists.";
 
     private final User user;
-    private final int fromMoneyAccountId;
+    protected final int fromMoneyAccountId;
 
-    public BillingValidator(User user, int fromMoneyAccountId) {
+    public MoneyAccountValidator(User user, int fromMoneyAccountId) {
         this.user = user;
         this.fromMoneyAccountId = fromMoneyAccountId;
     }
