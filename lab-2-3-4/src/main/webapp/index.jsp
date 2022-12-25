@@ -19,7 +19,7 @@
 
 <jsp:include page="partial-pages/header.jsp" />
 
-<div class="container">
+<div class="container pb-5">
     <h1 class="display-4">Welcome to your Payment System account!</h1>
     <h3 class="mb-3">Here you can manage your money cards and billings.</h3>
     <hr>
