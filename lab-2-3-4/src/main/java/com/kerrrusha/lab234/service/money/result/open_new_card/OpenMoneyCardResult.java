@@ -1,4 +1,4 @@
-package com.kerrrusha.lab234.service.moneycard.result.open_new_card;
+package com.kerrrusha.lab234.service.money.result.open_new_card;
 
 import com.kerrrusha.lab234.model.MoneyCard;
 import com.kerrrusha.lab234.service.AbstractResult;
