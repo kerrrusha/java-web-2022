@@ -1,4 +1,4 @@
-package com.kerrrusha.lab234.service.moneycard.result.billing;
+package com.kerrrusha.lab234.service.money.result.billing;
 
 import com.google.gson.Gson;
 import com.kerrrusha.lab234.factory.GsonFactory;
