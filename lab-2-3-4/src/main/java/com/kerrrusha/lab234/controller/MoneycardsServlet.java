@@ -2,7 +2,8 @@ package com.kerrrusha.lab234.controller;
 
 import com.kerrrusha.lab234.dao.DBException;
 import com.kerrrusha.lab234.model.User;
-import com.kerrrusha.lab234.service.moneycard.MoneyService;
+import com.kerrrusha.lab234.service.money.MoneyService;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,21 +15,23 @@ import java.io.IOException;
 @WebServlet("/moneycards")
 public class MoneycardsServlet extends HttpServlet {
 
+    private final Logger logger = Logger.getLogger(getClass());
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("moneycards.jsp").forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            MoneyService moneyService = new MoneyService((User)request.getSession().getAttribute("user"));
+            User user = (User)request.getSession().getAttribute("user");
+            MoneyService moneyService = new MoneyService(user);
             final String json = moneyService.getUserMoneycardsViewModelJson();
             response.setContentType("application/json");
             response.getWriter().print(json);
         } catch (DBException e) {
-            request.setAttribute("error", e.getMessage());
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            logger.error(e.getMessage());
         }
     }
 }
