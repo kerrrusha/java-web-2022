@@ -2,9 +2,11 @@ package com.kerrrusha.lab234.service.moneycard;
 
 import com.google.gson.Gson;
 import com.kerrrusha.lab234.dao.DBException;
+import com.kerrrusha.lab234.dao.billing.BillingDao;
 import com.kerrrusha.lab234.dao.moneycard.MoneyCardDao;
 import com.kerrrusha.lab234.factory.GsonFactory;
 import com.kerrrusha.lab234.factory.MoneyCardFactory;
+import com.kerrrusha.lab234.model.Billing;
 import com.kerrrusha.lab234.model.MoneyAccount;
 import com.kerrrusha.lab234.model.MoneyCard;
 import com.kerrrusha.lab234.model.User;
@@ -23,20 +25,24 @@ import java.util.regex.Pattern;
 import static java.util.Collections.singletonList;
 import static org.apache.logging.log4j.util.Strings.isBlank;
 
-public class MoneyCardService {
+public class MoneyService {
 
-    private static final int maxActiveCardsAllowedAmount = 3;
+    private static final int BILLING_STATUS_DONE_ID = 2;
+    private static final int MAX_CARDS_ALLOWED = 3;
+
     private static final String MAX_CARDS_AMOUNT_ERROR = "Can't create money card: limit reached.";
     private static final String DATABASE_ERROR = "Something went wrong with database. Please, try again later.";
     private static final String NUMBER_FORMAT_ERROR = "Something went wrong while parsing number. Please, try again later.";
 
     private final Gson gson;
     private final MoneyCardDao moneyCardDao;
+    private final BillingDao billingDao;
     private final User user;
 
-    public MoneyCardService(User user) throws DBException {
+    public MoneyService(User user) throws DBException {
         this.user = user;
         moneyCardDao = new MoneyCardDao();
+        billingDao = new BillingDao();
         gson = GsonFactory.create();
     }
 
@@ -74,7 +80,7 @@ public class MoneyCardService {
     }
 
     public int getMaxCardsAllowedAmount() {
-        return maxActiveCardsAllowedAmount;
+        return MAX_CARDS_ALLOWED;
     }
 
     public OpenMoneyCardResult openNewMoneyCard(String name) {
@@ -134,6 +140,15 @@ public class MoneyCardService {
 
             moneyCardDao.updateMoneyCardBalance(fromMoneyCard);
             moneyCardDao.updateMoneyCardBalance(toMoneyCard);
+
+            Billing billing = new Billing();
+
+            billing.setMoneyAmount(moneyAmount);
+            billing.setBillingStatusId(BILLING_STATUS_DONE_ID);
+            billing.setFromMoneyCardId(fromMoneyCard.getId());
+            billing.setToMoneyCardId(toMoneyCard.getId());
+
+            billingDao.insertBilling(billing);
 
             result.setStatus(HttpStatus.SC_OK);
             result.setMoneyCard(fromMoneyCard);
