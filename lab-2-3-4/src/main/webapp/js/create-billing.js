@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function sendCreateNewBillingRequest(postUrl) {
     let cardNumber = $("#recipient-card-number").val();
-    let moneyAmount = $("#money-amount").val();
+    let moneyAmount = parseFloat($("#money-amount").val()) * 100;
     let fromMoneyAccountId = new URLSearchParams(window.location.search).get("fromMoneyAccountId");
     let data = "fromMoneyAccountId="+fromMoneyAccountId+"&toMoneyCardNumber="+cardNumber+"&moneyAmount="+moneyAmount;
     $.ajax({
@@ -14,7 +14,7 @@ function sendCreateNewBillingRequest(postUrl) {
         success: function(response) {
             console.log(response);
             if (response["status"] === 200) {
-                showSuccess(response["senderMoneyCard"]);
+                showSuccess(response["moneyCard"]);
             } else {
                 showErrors(response["errorPool"]);
             }
