@@ -2,7 +2,7 @@ package com.kerrrusha.lab234.controller;
 
 import com.kerrrusha.lab234.dao.DBException;
 import com.kerrrusha.lab234.model.User;
-import com.kerrrusha.lab234.service.moneycard.MoneyCardService;
+import com.kerrrusha.lab234.service.moneycard.MoneyService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,8 +22,8 @@ public class MoneycardsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            MoneyCardService moneyCardService = new MoneyCardService((User)request.getSession().getAttribute("user"));
-            final String json = moneyCardService.getUserMoneycardsViewModelJson();
+            MoneyService moneyService = new MoneyService((User)request.getSession().getAttribute("user"));
+            final String json = moneyService.getUserMoneycardsViewModelJson();
             response.setContentType("application/json");
             response.getWriter().print(json);
         } catch (DBException e) {
