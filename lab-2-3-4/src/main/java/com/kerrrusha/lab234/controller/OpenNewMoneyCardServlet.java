@@ -3,9 +3,9 @@ package com.kerrrusha.lab234.controller;
 import com.kerrrusha.lab234.dao.DBException;
 import com.kerrrusha.lab234.factory.ResultSenderFactory;
 import com.kerrrusha.lab234.model.User;
-import com.kerrrusha.lab234.service.moneycard.MoneyService;
-import com.kerrrusha.lab234.service.moneycard.result.open_new_card.OpenMoneyCardResult;
-import com.kerrrusha.lab234.service.moneycard.result.open_new_card.OpenMoneyCardResultSender;
+import com.kerrrusha.lab234.service.money.MoneyService;
+import com.kerrrusha.lab234.service.money.result.open_new_card.OpenMoneyCardResult;
+import com.kerrrusha.lab234.service.money.result.open_new_card.OpenMoneyCardResultSender;
 import org.apache.http.HttpStatus;
 
 import javax.servlet.ServletException;
@@ -21,8 +21,9 @@ public class OpenNewMoneyCardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         MoneyService moneyService;
+        User user = (User) request.getSession().getAttribute("user");
         try {
-            moneyService = new MoneyService((User)request.getSession().getAttribute("user"));
+            moneyService = new MoneyService(user);
         } catch (DBException e) {
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
@@ -35,8 +36,9 @@ public class OpenNewMoneyCardServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         final String moneyAccountName = request.getParameter("moneyAccountName");
+        User user = (User)request.getSession().getAttribute("user");
         try {
-            MoneyService moneyService = new MoneyService((User)request.getSession().getAttribute("user"));
+            MoneyService moneyService = new MoneyService(user);
             OpenMoneyCardResult result = moneyService.openNewMoneyCard(moneyAccountName);
             OpenMoneyCardResultSender.valueOf(result).sendResponse(response);
         } catch (DBException e) {
