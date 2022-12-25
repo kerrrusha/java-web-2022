@@ -119,4 +119,12 @@ public class MoneyCard implements Serializable {
     private int removeDigitsAfterComma(double value) {
         return (int) value;
     }
+
+    public void takeMoney(int moneyAmount) {
+        balance -= moneyAmount;
+    }
+
+    public void giveMoney(int moneyAmount) {
+        balance += moneyAmount;
+    }
 }
