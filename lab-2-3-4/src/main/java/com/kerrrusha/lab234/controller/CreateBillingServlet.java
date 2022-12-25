@@ -4,9 +4,9 @@ import com.kerrrusha.lab234.dao.DBException;
 import com.kerrrusha.lab234.exception.RestrictedMoneyAccountException;
 import com.kerrrusha.lab234.factory.ResultSenderFactory;
 import com.kerrrusha.lab234.model.User;
-import com.kerrrusha.lab234.service.moneycard.MoneyService;
-import com.kerrrusha.lab234.service.moneycard.result.billing.BillingResult;
-import com.kerrrusha.lab234.service.moneycard.result.billing.BillingResultSender;
+import com.kerrrusha.lab234.service.money.MoneyService;
+import com.kerrrusha.lab234.service.money.result.billing.BillingResult;
+import com.kerrrusha.lab234.service.money.result.billing.BillingResultSender;
 import com.kerrrusha.lab234.validator.MoneyAccountValidator;
 import org.apache.http.HttpStatus;
 
