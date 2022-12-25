@@ -4,7 +4,7 @@ import com.kerrrusha.lab234.dao.DBException;
 import com.kerrrusha.lab234.exception.RestrictedMoneyAccountException;
 import com.kerrrusha.lab234.factory.ResultSenderFactory;
 import com.kerrrusha.lab234.model.User;
-import com.kerrrusha.lab234.service.moneycard.MoneyCardService;
+import com.kerrrusha.lab234.service.moneycard.MoneyService;
 import com.kerrrusha.lab234.service.moneycard.result.billing.BillingResult;
 import com.kerrrusha.lab234.service.moneycard.result.billing.BillingResultSender;
 import com.kerrrusha.lab234.validator.MoneyAccountValidator;
@@ -31,10 +31,10 @@ public class CreateBillingServlet extends HttpServlet {
             if (!errorPool.isEmpty()) {
                 throw new RestrictedMoneyAccountException(errorPool);
             }
-            MoneyCardService moneyCardService = new MoneyCardService(user);
+            MoneyService moneyService = new MoneyService(user);
 
-            request.setAttribute("moneyAccount", moneyCardService.getMoneyAccountById(fromMoneyAccountId));
-            request.setAttribute("moneyCard", moneyCardService.getMoneyCardByMoneyAccountId(fromMoneyAccountId));
+            request.setAttribute("moneyAccount", moneyService.getMoneyAccountById(fromMoneyAccountId));
+            request.setAttribute("moneyCard", moneyService.getMoneyCardByMoneyAccountId(fromMoneyAccountId));
         } catch (NumberFormatException | DBException | RestrictedMoneyAccountException e) {
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
@@ -50,14 +50,14 @@ public class CreateBillingServlet extends HttpServlet {
         final String moneyAmountStr = request.getParameter("moneyAmount");
         final User user = (User)request.getSession().getAttribute("user");
 
-        MoneyCardService moneyCardService;
+        MoneyService moneyService;
         try {
-            moneyCardService = new MoneyCardService(user);
+            moneyService = new MoneyService(user);
         } catch (DBException e) {
             ResultSenderFactory.createAbstractResultSenderFromError(e.getMessage(), HttpStatus.SC_INTERNAL_SERVER_ERROR).sendResponse(response);
             return;
         }
-        BillingResult result = moneyCardService.sendMoney(fromMoneyAccountIdStr, toMoneyCardNumber, moneyAmountStr);
+        BillingResult result = moneyService.sendMoney(fromMoneyAccountIdStr, toMoneyCardNumber, moneyAmountStr);
         BillingResultSender.valueOf(result).sendResponse(response);
     }
 }
