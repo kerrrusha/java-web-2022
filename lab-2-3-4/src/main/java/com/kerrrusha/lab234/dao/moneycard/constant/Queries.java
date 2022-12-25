@@ -12,6 +12,7 @@ public class Queries {
 	public static final String FIND_MONEY_ACCOUNT_BY_ID = "SELECT * FROM `money_account` WHERE id = ?";
 	public static final String FIND_MONEY_CARD_BY_MONEY_ACCOUNT_ID = "SELECT * FROM `money_card` WHERE money_account_id = ?";
 	public static final String FIND_MONEY_CARDS_BY_NUMBER = "SELECT * FROM `money_card` WHERE number = ?";
+	public static final String FIND_MONEY_CARDS_BY_ID = "SELECT * FROM `money_card` WHERE id = ?";
 
 	public static final String INSERT_MONEY_CARD = "INSERT INTO " +
 			"`money_card`(money_account_id, number, expiration_date, secret, balance) " +
