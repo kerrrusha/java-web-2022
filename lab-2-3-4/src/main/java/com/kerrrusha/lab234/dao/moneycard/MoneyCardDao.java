@@ -19,7 +19,7 @@ public class MoneyCardDao extends AbstractDao {
 
 	public MoneyCardDao() throws DBException {}
 
-	public Collection<MoneyCard> findByUserId(int userId) throws DBException {
+	public Collection<MoneyCard> findMoneyCardsByUserId(int userId) throws DBException {
 		Collection<MoneyCard> entities = new ArrayList<>();
 		try (Connection con = DriverManager.getConnection(FULL_URL);
 		     PreparedStatement stmt = con.prepareStatement(Queries.FIND_MONEY_CARDS_BY_USER_ID)) {
@@ -36,7 +36,24 @@ public class MoneyCardDao extends AbstractDao {
 		return entities;
 	}
 
-	public MoneyCard findOneByUserIdAndSecretAndNumber(int userId, String secret, String number) throws DBException {
+	public MoneyCard findMoneyCardByNumber(String cardNumber) throws DBException {
+		MoneyCard entity = null;
+		try (Connection con = DriverManager.getConnection(FULL_URL);
+			 PreparedStatement stmt = con.prepareStatement(Queries.FIND_MONEY_CARDS_BY_NUMBER)) {
+			stmt.setString(1, cardNumber);
+			try (ResultSet rs = stmt.executeQuery()) {
+				if (rs.next()) {
+					entity = mapToEntity(rs);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e.getMessage());
+		}
+		return entity;
+	}
+
+	public MoneyCard findMoneyCardByUserIdAndSecretAndNumber(int userId, String secret, String number) throws DBException {
 		MoneyCard entity = null;
 		try (Connection con = DriverManager.getConnection(FULL_URL);
 			 PreparedStatement stmt = con.prepareStatement(Queries.FIND_MONEY_CARD_BY_USER_ID_AND_SECRET_AND_NUMBER)) {
@@ -90,7 +107,7 @@ public class MoneyCardDao extends AbstractDao {
 		return moneyAccount;
 	}
 
-	public MoneyCard findByMoneyAccountId(int moneyAccountId) throws DBException {
+	public MoneyCard findMoneyCardByMoneyAccountId(int moneyAccountId) throws DBException {
 		MoneyCard entity = null;
 		try (Connection con = DriverManager.getConnection(FULL_URL);
 			 PreparedStatement stmt = con.prepareStatement(Queries.FIND_MONEY_CARD_BY_MONEY_ACCOUNT_ID)) {
@@ -134,7 +151,19 @@ public class MoneyCardDao extends AbstractDao {
 		}
 	}
 
-	public void updateNumber(MoneyCard entity) throws DBException {
+	public void updateMoneyCardBalance(MoneyCard entity) throws DBException {
+		try (Connection con = DriverManager.getConnection(FULL_URL);
+			 PreparedStatement stmt = con.prepareStatement(Queries.UPDATE_MONEY_CARD_BALANCE)) {
+			stmt.setInt(1, entity.getBalance());
+			stmt.setInt(2, entity.getId());
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e.getMessage());
+		}
+	}
+
+	public void updateMoneyCardNumber(MoneyCard entity) throws DBException {
 		try (Connection con = DriverManager.getConnection(FULL_URL);
 			 PreparedStatement stmt = con.prepareStatement(Queries.UPDATE_MONEY_CARD_NUMBER)) {
 			stmt.setString(1, entity.getNumber());
