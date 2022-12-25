@@ -8,21 +8,27 @@ import com.kerrrusha.lab234.factory.MoneyCardFactory;
 import com.kerrrusha.lab234.model.MoneyAccount;
 import com.kerrrusha.lab234.model.MoneyCard;
 import com.kerrrusha.lab234.model.User;
+import com.kerrrusha.lab234.service.moneycard.result.billing.BillingResult;
+import com.kerrrusha.lab234.service.moneycard.result.open_new_card.OpenMoneyCardResult;
 import com.kerrrusha.lab234.validator.AbstractValidator;
+import com.kerrrusha.lab234.validator.BillingValidator;
 import com.kerrrusha.lab234.validator.MoneyCardValidator;
 import com.kerrrusha.lab234.viewmodel.MoneycardViewModel;
 import org.apache.http.HttpStatus;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.regex.Pattern;
 
 import static java.util.Collections.singletonList;
+import static org.apache.logging.log4j.util.Strings.isBlank;
 
 public class MoneyCardService {
 
     private static final int maxActiveCardsAllowedAmount = 3;
     private static final String MAX_CARDS_AMOUNT_ERROR = "Can't create money card: limit reached.";
     private static final String DATABASE_ERROR = "Something went wrong with database. Please, try again later.";
+    private static final String NUMBER_FORMAT_ERROR = "Something went wrong while parsing number. Please, try again later.";
 
     private final Gson gson;
     private final MoneyCardDao moneyCardDao;
@@ -60,7 +66,7 @@ public class MoneyCardService {
     }
 
     private Collection<MoneyCard> getUserMoneyCards() throws DBException {
-        return moneyCardDao.findByUserId(user.getId());
+        return moneyCardDao.findMoneyCardsByUserId(user.getId());
     }
 
     public int getUserCardsAmount() throws DBException {
@@ -104,6 +110,56 @@ public class MoneyCardService {
         return result;
     }
 
+    public BillingResult sendMoney(String fromMoneyAccountIdStr, String toMoneyCardNumber, String moneyAmountStr) {
+        BillingResult result = new BillingResult();
+
+        try {
+            int fromMoneyAccountId = Integer.parseInt(fromMoneyAccountIdStr);
+            int moneyAmount = Integer.parseInt(moneyAmountStr);
+            toMoneyCardNumber = fixCardNumberIfInvalid(toMoneyCardNumber);
+
+            AbstractValidator validator = new BillingValidator(user, fromMoneyAccountId, toMoneyCardNumber, moneyAmount);
+            Collection<String> errorPool = validator.getErrors();
+            if (!errorPool.isEmpty()) {
+                result.setStatus(HttpStatus.SC_CONFLICT);
+                result.setErrorPool(errorPool);
+                return result;
+            }
+
+            MoneyCard fromMoneyCard = moneyCardDao.findMoneyCardByMoneyAccountId(fromMoneyAccountId);
+            MoneyCard toMoneyCard = moneyCardDao.findMoneyCardByNumber(toMoneyCardNumber);
+
+            fromMoneyCard.takeMoney(moneyAmount);
+            toMoneyCard.giveMoney(moneyAmount);
+
+            moneyCardDao.updateMoneyCardBalance(fromMoneyCard);
+            moneyCardDao.updateMoneyCardBalance(toMoneyCard);
+
+            result.setStatus(HttpStatus.SC_OK);
+            result.setMoneyCard(fromMoneyCard);
+        } catch (NumberFormatException e) {
+            result.setStatus(HttpStatus.SC_BAD_REQUEST);
+            result.setErrorPool(singletonList(NUMBER_FORMAT_ERROR));
+            return result;
+        } catch (DBException e) {
+            result.setStatus(HttpStatus.SC_INTERNAL_SERVER_ERROR);
+            result.setErrorPool(singletonList(DATABASE_ERROR));
+            return result;
+        }
+
+        return result;
+    }
+
+    private String fixCardNumberIfInvalid(String toMoneyCardNumber) {
+        if (isBlank(toMoneyCardNumber) ||
+                toMoneyCardNumber.length() != 16 ||
+                !Pattern.compile("([0-9]{4}){4}").matcher(toMoneyCardNumber).find()) {
+            return toMoneyCardNumber;
+        }
+        return toMoneyCardNumber.substring(0, 4) + " " + toMoneyCardNumber.substring(4, 8) + " "
+                + toMoneyCardNumber.substring(8, 12) + " " + toMoneyCardNumber.substring(12);
+    }
+
     private MoneyAccount createNewMoneyAccountToDb(String name) throws DBException {
         MoneyAccount newMoneyAccount = new MoneyAccount();
         newMoneyAccount.setName(name);
@@ -117,23 +173,23 @@ public class MoneyCardService {
         MoneyCard newMoneyCard = MoneyCardFactory.createNewMoneyCard(insertedMoneyAccountId);
         moneyCardDao.insert(newMoneyCard);
 
-        MoneyCard insertedMoneyCard = moneyCardDao.findOneByUserIdAndSecretAndNumber(
+        MoneyCard insertedMoneyCard = moneyCardDao.findMoneyCardByUserIdAndSecretAndNumber(
                 user.getId(),
                 newMoneyCard.getSecret(),
                 newMoneyCard.getNumber()
         );
         insertedMoneyCard.setNumberFromId();
 
-        moneyCardDao.updateNumber(insertedMoneyCard);
+        moneyCardDao.updateMoneyCardNumber(insertedMoneyCard);
 
         return insertedMoneyCard;
     }
 
     public MoneyAccount getMoneyAccountById(int fromMoneyAccountId) throws DBException {
-        return new MoneyCardDao().findMoneyAccountById(fromMoneyAccountId);
+        return moneyCardDao.findMoneyAccountById(fromMoneyAccountId);
     }
 
     public MoneyCard getMoneyCardByMoneyAccountId(int fromMoneyAccountId) throws DBException {
-        return new MoneyCardDao().findByMoneyAccountId(fromMoneyAccountId);
+        return moneyCardDao.findMoneyCardByMoneyAccountId(fromMoneyAccountId);
     }
 }
