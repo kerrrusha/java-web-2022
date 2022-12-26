@@ -30,6 +30,7 @@
         </div>
         <div id="create-billing-base-url" style="display: none;">${pageContext.request.contextPath}/create-billing?fromMoneyAccountId=</div>
         <div id="replenishment-base-url" style="display: none;">${pageContext.request.contextPath}/create-replenishment?toMoneyAccountId=</div>
+        <div id="block-money-account-base-url" style="display: none;">${pageContext.request.contextPath}/block-money-account?moneyAccountId=</div>
         <ul id="card-list" class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 d-flex flex-column">
 
         </ul>
