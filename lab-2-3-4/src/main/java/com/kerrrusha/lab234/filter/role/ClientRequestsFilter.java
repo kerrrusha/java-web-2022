@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebFilter(urlPatterns = {
-        "/admin-panel"
+        "/admin/panel"
 })
 public class ClientRequestsFilter implements Filter {
 
