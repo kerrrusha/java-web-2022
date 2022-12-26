@@ -33,7 +33,8 @@ function getColorFromSecret(secret) {
 
 function mapElementsToListElements(elements) {
     let html = '';
-    let createBillingBaseUrl = $("#create-billing-base-url").text();
+    let billingBaseUrl = $("#create-billing-base-url").text();
+    let replenishmentBaseUrl = $("#replenishment-base-url").text();
     elements.forEach(element => {
         html += '<li class="border d-flex flex-row justify-content-around align-items-center p-3" style="align-content: normal;">' +
             '                <div class="d-flex flex-column align-items-center justify-content-start">' +
@@ -49,9 +50,8 @@ function mapElementsToListElements(elements) {
             '                    <p class="oncard number text-center mt-3">'+element.moneyCardNumber+'</p>' +
             '                </div>' +
             '                <div class="d-flex flex-column align-items-center justify-content-start">' +
-            '                    <a href="'+createBillingBaseUrl+element.moneyAccountId+'">Create billing</a>' +
-            '                    <a href="">Replenishment</a>' +
-            '                    <a href="">Billing history</a>' +
+            '                    <a href="'+billingBaseUrl+element.moneyAccountId+'">Create billing</a>' +
+            '                    <a href="'+replenishmentBaseUrl+element.moneyAccountId+'">Replenishment</a>' +
             '                    <a href="">Block this card</a>' +
             '                </div>' +
             '            </li>';
