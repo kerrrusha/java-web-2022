@@ -1,4 +1,4 @@
-package com.kerrrusha.lab234.filter;
+package com.kerrrusha.lab234.filter.auth;
 
 import com.kerrrusha.lab234.model.User;
 
@@ -20,7 +20,8 @@ import java.io.IOException;
 		"/moneycards",
 		"/create-billing",
 		"/billings",
-		"/create-replenishment"
+		"/create-replenishment",
+		"/block-money-account"
 }, description = "Redirect all not authorized requests to /signin")
 public class NotAuthorizedRequestsFilter implements Filter {
 
