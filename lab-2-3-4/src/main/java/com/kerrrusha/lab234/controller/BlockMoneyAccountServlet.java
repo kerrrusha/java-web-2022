@@ -4,7 +4,7 @@ import com.kerrrusha.lab234.dao.DBException;
 import com.kerrrusha.lab234.exception.BlockMoneyAccountException;
 import com.kerrrusha.lab234.model.User;
 import com.kerrrusha.lab234.model.MoneyCard;
-import com.kerrrusha.lab234.service.BlockMoneyAccountService;
+import com.kerrrusha.lab234.service.block_money_account.BlockMoneyAccountService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
