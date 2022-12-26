@@ -1,6 +1,7 @@
 package com.kerrrusha.lab234.validator.auth;
 
 import com.kerrrusha.lab234.dao.DBException;
+import com.kerrrusha.lab234.dao.blocked_user.BlockedUserDao;
 import com.kerrrusha.lab234.dao.user.UserDao;
 import com.kerrrusha.lab234.model.User;
 import com.kerrrusha.lab234.validator.AbstractValidator;
@@ -15,6 +16,7 @@ public class LoginValidator extends AbstractValidator {
 	private static final String INVALID_PASSWORD = "Password is invalid.";
 	private static final String PHONE_IS_NULL = "Something is wrong while submitting login to the server. We will definitely fix this, but for now, please try again.";
 	private static final String PASSWORD_IS_NULL = "Something is wrong while submitting password to the server. We will definitely fix this, but for now, please try again.";
+	private static final String USER_IS_BLOCKED = "Your account is blocked.";
 
 	private final String phone;
 	private final String password;
@@ -36,6 +38,10 @@ public class LoginValidator extends AbstractValidator {
 
 		try {
 			user = new UserDao().findOneByPhone(phone);
+
+			if (new BlockedUserDao().entryByUserIdExists(user.getId())) {
+				return Optional.of(USER_IS_BLOCKED);
+			}
 		} catch (DBException e) {
 			return Optional.of(DATABASE_ERROR);
 		}
