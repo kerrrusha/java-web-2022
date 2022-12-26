@@ -26,6 +26,17 @@ public class BlockedUserDao extends AbstractDao {
 		}
 	}
 
+	public void delete(int userId) throws DBException {
+		try (Connection con = DriverManager.getConnection(FULL_URL);
+			 PreparedStatement stmt = con.prepareStatement(Queries.DELETE_BLOCKED_USER)) {
+			stmt.setInt(1, userId);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e.getMessage());
+		}
+	}
+
 	public boolean entryByUserIdExists(int moneyAccountId) throws DBException {
 		BlockedUser entity = null;
 		try (Connection con = DriverManager.getConnection(FULL_URL);
