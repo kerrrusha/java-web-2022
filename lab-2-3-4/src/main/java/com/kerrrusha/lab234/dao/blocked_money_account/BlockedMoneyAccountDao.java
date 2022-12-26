@@ -26,6 +26,17 @@ public class BlockedMoneyAccountDao extends AbstractDao {
 		}
 	}
 
+	public void delete(int moneyAccountId) throws DBException {
+		try (Connection con = DriverManager.getConnection(FULL_URL);
+			 PreparedStatement stmt = con.prepareStatement(Queries.DELETE_BLOCKED_MONEY_ACCOUNT)) {
+			stmt.setInt(1, moneyAccountId);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DBException(e.getMessage());
+		}
+	}
+
 	public boolean entryByMoneyAccountIdExists(int moneyAccountId) throws DBException {
 		BlockedMoneyAccount entity = null;
 		try (Connection con = DriverManager.getConnection(FULL_URL);
