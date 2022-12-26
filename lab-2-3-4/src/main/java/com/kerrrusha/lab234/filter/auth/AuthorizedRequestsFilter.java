@@ -1,4 +1,4 @@
-package com.kerrrusha.lab234.filter;
+package com.kerrrusha.lab234.filter.auth;
 
 import com.kerrrusha.lab234.model.User;
 import org.apache.log4j.Logger;
