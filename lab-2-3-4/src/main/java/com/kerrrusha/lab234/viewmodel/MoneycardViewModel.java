@@ -5,12 +5,17 @@ import java.time.LocalDate;
 public class MoneycardViewModel {
 
     private int moneyAccountId;
+    private boolean isBlocked;
     private String moneyAccountName;
     private String moneyCardNumber;
     private int balance;
     private String secret;
     private LocalDate expirationDate;
     private LocalDate openedDate;
+
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
+    }
 
     public void setMoneyAccountId(int moneyAccountId) {
         this.moneyAccountId = moneyAccountId;
