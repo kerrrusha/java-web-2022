@@ -22,7 +22,7 @@ import java.io.IOException;
 		"/billings",
 		"/create-replenishment",
 		"/block-money-account",
-		"/admin-panel"
+		"/admin/panel"
 }, description = "Redirect all not authorized requests to /signin")
 public class NotAuthorizedRequestsFilter implements Filter {
 
