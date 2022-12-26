@@ -19,7 +19,8 @@ import java.io.IOException;
 		"/open-new-money-card",
 		"/moneycards",
 		"/create-billing",
-		"/billings"
+		"/billings",
+		"/create-replenishment"
 }, description = "Redirect all not authorized requests to /signin")
 public class NotAuthorizedRequestsFilter implements Filter {
 
