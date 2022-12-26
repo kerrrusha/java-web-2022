@@ -75,12 +75,19 @@ function fillTable() {
     tableBody.html(mapElementsToHtml(moneyCardElements));
 }
 
+function getAlertIfCardIsBlocked(element) {
+    if (!element.isBlocked) {
+        return '';
+    }
+    return '<span class="text-danger">(blocked)</span>';
+}
+
 function mapElementsToHtml(elements) {
     let html = '';
     elements.forEach(element => {
         html += '<tr>' +
             '        <th scope="row">'+element.moneyAccountId+'</th>' +
-            '    <td>'+element.moneyAccountName+'</td>' +
+            '    <td>'+element.moneyAccountName+' ' +getAlertIfCardIsBlocked(element)+'</td>' +
             '    <td>'+element.moneyCardNumber+'</td>' +
             '    <td>'+getPrettyMoney(element.balance)+'</td>' +
             '    <td>'+element.expirationDate+'</td>' +
