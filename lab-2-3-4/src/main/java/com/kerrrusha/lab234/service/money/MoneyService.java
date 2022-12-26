@@ -3,6 +3,7 @@ package com.kerrrusha.lab234.service.money;
 import com.google.gson.Gson;
 import com.kerrrusha.lab234.dao.DBException;
 import com.kerrrusha.lab234.dao.billing.BillingDao;
+import com.kerrrusha.lab234.dao.blocked_money_account.BlockedMoneyAccountDao;
 import com.kerrrusha.lab234.dao.moneycard.MoneyCardDao;
 import com.kerrrusha.lab234.factory.GsonFactory;
 import com.kerrrusha.lab234.factory.MoneyCardFactory;
@@ -12,7 +13,7 @@ import com.kerrrusha.lab234.service.money.result.open_new_card.OpenMoneyCardResu
 import com.kerrrusha.lab234.validator.AbstractValidator;
 import com.kerrrusha.lab234.validator.ReplenishMoneyValidator;
 import com.kerrrusha.lab234.validator.SendMoneyValidator;
-import com.kerrrusha.lab234.validator.MoneyCardValidator;
+import com.kerrrusha.lab234.validator.MoneyCardCreationValidator;
 import com.kerrrusha.lab234.viewmodel.BillingViewModel;
 import com.kerrrusha.lab234.viewmodel.MoneycardViewModel;
 import org.apache.http.HttpStatus;
@@ -36,12 +37,14 @@ public class MoneyService {
     private final Gson gson;
     private final MoneyCardDao moneyCardDao;
     private final BillingDao billingDao;
+    private final BlockedMoneyAccountDao blockedMoneyAccountDao;
     private final User user;
 
     public MoneyService(User user) throws DBException {
         this.user = user;
         moneyCardDao = new MoneyCardDao();
         billingDao = new BillingDao();
+        blockedMoneyAccountDao = new BlockedMoneyAccountDao();
         gson = GsonFactory.create();
     }
 
@@ -61,6 +64,7 @@ public class MoneyService {
             MoneycardViewModel viewModel = new MoneycardViewModel();
 
             viewModel.setMoneyCardNumber(moneyCard.getNumber());
+            viewModel.setBlocked(blockedMoneyAccountDao.entryByMoneyAccountIdExists(moneyCard.getMoneyAccountId()));
             viewModel.setBalance(moneyCard.getBalance());
             viewModel.setSecret(moneyCard.getSecret());
             viewModel.setMoneyAccountId(moneyCard.getMoneyAccountId());
@@ -115,7 +119,7 @@ public class MoneyService {
 
     public OpenMoneyCardResult openNewMoneyCard(String name) {
         OpenMoneyCardResult result = new OpenMoneyCardResult();
-        AbstractValidator validator = new MoneyCardValidator(name);
+        AbstractValidator validator = new MoneyCardCreationValidator(name);
 
         try {
             if (getUserCardsAmount() >= getMaxCardsAllowedAmount()) {
