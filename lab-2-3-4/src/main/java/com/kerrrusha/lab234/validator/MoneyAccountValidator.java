@@ -1,6 +1,7 @@
 package com.kerrrusha.lab234.validator;
 
 import com.kerrrusha.lab234.dao.DBException;
+import com.kerrrusha.lab234.dao.blocked_money_account.BlockedMoneyAccountDao;
 import com.kerrrusha.lab234.dao.moneycard.MoneyCardDao;
 import com.kerrrusha.lab234.model.MoneyAccount;
 import com.kerrrusha.lab234.model.User;
@@ -16,6 +17,7 @@ public class MoneyAccountValidator extends AbstractValidator {
     private static final String RESTRICTED_MONEY_ACCOUNT = "Such money account does not belongs to you.";
     private static final String INVALID_MONEY_ACCOUNT_ID = "Money account id must be greater than 0.";
     private static final String MONEY_ACCOUNT_DOES_NOT_EXISTS = "Such money account does not exists.";
+    private static final String MONEY_ACCOUNT_IS_BLOCKED = "This money account is blocked, so you can't perform money transfer.";
 
     private final User user;
     protected final int fromMoneyAccountId;
@@ -28,8 +30,19 @@ public class MoneyAccountValidator extends AbstractValidator {
     @Override
     protected void validate() {
         addPossibleError(checkIfFieldIsNull(user, USER_IS_NULL));
-        addPossibleError(validateFromMoneyAccountId());
+        addPossibleError(validateFromMoneyAccountIdNumberIsGreaterThanZero());
+        addPossibleError(validateThatMoneyAccountIsNotBlocked());
         addPossibleError(validateThatMoneyAccountIdBelongsToUser());
+    }
+
+    private Optional<String> validateThatMoneyAccountIsNotBlocked() {
+        try {
+            return new BlockedMoneyAccountDao().entryByMoneyAccountIdExists(fromMoneyAccountId)
+                    ? Optional.of(MONEY_ACCOUNT_IS_BLOCKED)
+                    : Optional.empty();
+        } catch (DBException e) {
+            return Optional.of(DATABASE_ERROR);
+        }
     }
 
     private Optional<String> validateThatMoneyAccountIdBelongsToUser() {
@@ -46,7 +59,7 @@ public class MoneyAccountValidator extends AbstractValidator {
         }
     }
 
-    private Optional<String> validateFromMoneyAccountId() {
+    private Optional<String> validateFromMoneyAccountIdNumberIsGreaterThanZero() {
         return fromMoneyAccountId <= 0 ? Optional.of(INVALID_MONEY_ACCOUNT_ID) : Optional.empty();
     }
 }
