@@ -29,7 +29,7 @@ public class BlockedMoneyAccountDao extends AbstractDao {
 	public boolean entryByMoneyAccountIdExists(int moneyAccountId) throws DBException {
 		BlockedMoneyAccount entity = null;
 		try (Connection con = DriverManager.getConnection(FULL_URL);
-			 PreparedStatement stmt = con.prepareStatement(Queries.FIND_BY_BLOCKED_MONEY_ACCOUNT)) {
+			 PreparedStatement stmt = con.prepareStatement(Queries.FIND_BY_BLOCKED_MONEY_ACCOUNT_ID)) {
 			stmt.setInt(1, moneyAccountId);
 			try (ResultSet rs = stmt.executeQuery()) {
 				if (rs.next()) {
