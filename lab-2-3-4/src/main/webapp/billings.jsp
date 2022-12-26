@@ -14,12 +14,12 @@
 
 <jsp:include page="partial-pages/header.jsp" />
 
-<div class="container">
+<div class="container pb-5">
   <h1 class="display-4">Billing history</h1>
   <hr>
   <div class="d-flex flex-row justify-content-between align-items-center">
     <p>Sort content by:</p>
-    <select class="form-select form-select-sm" id="sortType" onchange="updateSorting()" style="width: auto;">
+    <select class="form-select form-select-sm" id="sortType" onchange="updateSortingAndFillTable()" style="width: auto;">
       <option value="id-asc">Billing ID (asc)</option>
       <option value="id-desc">Billing ID (desc)</option>
       <option value="date-asc">Date (asc)</option>
