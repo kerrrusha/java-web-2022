@@ -46,12 +46,12 @@ public class ReplenishMoneyValidator extends MoneyAccountValidator {
             if (fromMoneyCard == null) {
                 return Optional.of(MONEY_CARD_DOES_NOT_EXISTS);
             }
+            return fromMoneyCard.getSecret().equals(fromMoneyCardSecret)
+                    ? Optional.empty()
+                    : Optional.of(SECRET_IS_INVALID);
         } catch (DBException e) {
             return Optional.of(DATABASE_ERROR);
         }
-        return fromMoneyCard.getSecret().equals(fromMoneyCardSecret)
-                ? Optional.empty()
-                : Optional.of(SECRET_IS_INVALID);
     }
 
     private Optional<String> validateMoneyAmount() {
