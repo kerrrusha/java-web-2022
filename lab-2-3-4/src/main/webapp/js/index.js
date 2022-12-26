@@ -31,6 +31,21 @@ function getColorFromSecret(secret) {
     return 'rgb(' + r + ', ' + g + ', ' + b + ')';
 }
 
+function getAlertIfCardIsBlocked(element) {
+    if (!element.isBlocked) {
+        return '';
+    }
+    return '<h5 class="text-danger">Is blocked</h5>';
+}
+
+function getBlockMoneyAccountUrl(element) {
+    if (!element.isBlocked) {
+        let blockMoneyAccountBaseUrl = $("#block-money-account-base-url").text();
+        return '<a href="'+ blockMoneyAccountBaseUrl + element.moneyAccountId +'">Block this card</a>';
+    }
+    return '';
+}
+
 function mapElementsToListElements(elements) {
     let html = '';
     let billingBaseUrl = $("#create-billing-base-url").text();
@@ -41,6 +56,7 @@ function mapElementsToListElements(elements) {
             '                    <h4>'+element.moneyAccountName+' card</h4>' +
             '                    <p class="display-6">'+getPrettyMoney(element.balance)+'</p>' +
             '                    <p class="text-muted">Card opened: '+element.openedDate+'</p>' +
+                                 getAlertIfCardIsBlocked(element)   +
             '                </div>' +
             '                <div class="rounded border border-dark d-flex flex-column" style="background-color: '+getColorFromSecret(element.secret)+'!important; width: 220px; height: 125px;">' +
             '                    <div class="d-flex flex-row justify-content-around mt-1">' +
@@ -52,7 +68,7 @@ function mapElementsToListElements(elements) {
             '                <div class="d-flex flex-column align-items-center justify-content-start">' +
             '                    <a href="'+billingBaseUrl+element.moneyAccountId+'">Create billing</a>' +
             '                    <a href="'+replenishmentBaseUrl+element.moneyAccountId+'">Replenishment</a>' +
-            '                    <a href="">Block this card</a>' +
+                                 getBlockMoneyAccountUrl(element) +
             '                </div>' +
             '            </li>';
     });
