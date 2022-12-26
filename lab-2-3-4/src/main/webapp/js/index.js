@@ -47,6 +47,9 @@ function getBlockMoneyAccountUrl(element) {
 }
 
 function mapElementsToListElements(elements) {
+    if (elements.length === 0) {
+        return '<h4>You have no any opened card yet.</h4>';
+    }
     let html = '';
     let billingBaseUrl = $("#create-billing-base-url").text();
     let replenishmentBaseUrl = $("#replenishment-base-url").text();
