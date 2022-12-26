@@ -11,7 +11,7 @@
             <li><a href="${pageContext.request.contextPath}/cabinet" class="nav-link px-2 link-dark">Cabinet</a></li>
             <li><a href="${pageContext.request.contextPath}/about" class="nav-link px-2 link-dark">About</a></li>
             <c:if test = "${sessionScope.user.getRoleId() == 2}">
-                <li><a href="${pageContext.request.contextPath}/admin-panel" class="nav-link px-2 link-dark">Admin panel</a></li>
+                <li><a href="${pageContext.request.contextPath}/admin/panel" class="nav-link px-2 link-dark">Admin panel</a></li>
             </c:if>
         </ul>
 
