@@ -2,13 +2,16 @@ document.addEventListener("DOMContentLoaded", function() {
     loadData();
 });
 
+var billingElements = [];
+
 function loadData() {
     $.ajax({
         type: "POST",
         url: window.location.href,
         success: function(response) {
             console.log(response);
-            fillTable(response);
+            billingElements = response;
+            updateSortingAndFillTable();
         },
         error: function (response) {
             console.log(response);
@@ -16,29 +19,23 @@ function loadData() {
     });
 }
 
-var billingElements = [];
-
 function sortById(order) {
-    let sorted;
     if (order === 'asc') {
-        sorted = billingElements.sort((a, b) => a.billingId > b.billingId ? 1 : -1);
+        billingElements = billingElements.sort((a, b) => a.billingId > b.billingId ? 1 : -1);
     } else {
-        sorted = billingElements.sort((a, b) => a.billingId < b.billingId ? 1 : -1);
+        billingElements = billingElements.sort((a, b) => a.billingId < b.billingId ? 1 : -1);
     }
-    fillTable(sorted);
 }
 
 function sortByDate(order) {
-    let sorted;
     if (order === 'asc') {
-        sorted = billingElements.sort((a, b) => a.createdTime.toLowerCase() > b.createdTime.toLowerCase() ? 1 : -1);
+        billingElements = billingElements.sort((a, b) => a.createdTime.toLowerCase() > b.createdTime.toLowerCase() ? 1 : -1);
     } else {
-        sorted = billingElements.sort((a, b) => a.createdTime.toLowerCase() < b.createdTime.toLowerCase() ? 1 : -1);
+        billingElements = billingElements.sort((a, b) => a.createdTime.toLowerCase() < b.createdTime.toLowerCase() ? 1 : -1);
     }
-    fillTable(sorted);
 }
 
-function updateSorting() {
+function updateSortingAndFillTable() {
     let sortType = $("#sortType").find(":selected").val();
     switch (sortType) {
         case 'id-asc':
@@ -56,12 +53,12 @@ function updateSorting() {
         default:
             sortByDate("desc");
     }
+    fillTable();
 }
 
-function fillTable(elements) {
-    billingElements = elements;
+function fillTable() {
     let tableBody = $("#billingsTableBody");
-    tableBody.html(mapElementsToHtml(elements));
+    tableBody.html(mapElementsToHtml(billingElements));
 }
 
 function mapElementsToHtml(elements) {
