@@ -1,6 +1,5 @@
-package com.kerrrusha.lab234;
+package com.kerrrusha.lab234.dao;
 
-import com.kerrrusha.lab234.dao.DBException;
 import com.kerrrusha.lab234.dao.user.UserDao;
 import com.kerrrusha.lab234.factory.UserFactory;
 import com.kerrrusha.lab234.model.User;
