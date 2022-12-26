@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import static com.kerrrusha.lab234.util.ValidatorUtil.checkIfStringIsBlank;
 
-public class BillingValidator extends MoneyAccountValidator {
+public class SendMoneyValidator extends MoneyAccountValidator {
 
     private static final String MONEY_CARD_DOES_NOT_EXISTS = "Such money card does not exists.";
     private static final String INVALID_MONEY_AMOUNT = "Money amount cannot be less that 0.";
@@ -18,7 +18,7 @@ public class BillingValidator extends MoneyAccountValidator {
     private final String toMoneyCardNumber;
     private final int moneyAmount;
 
-    public BillingValidator(User user, int fromMoneyAccountId, String toMoneyCardNumber, int moneyAmount) {
+    public SendMoneyValidator(User user, int fromMoneyAccountId, String toMoneyCardNumber, int moneyAmount) {
         super(user, fromMoneyAccountId);
         this.toMoneyCardNumber = toMoneyCardNumber;
         this.moneyAmount = moneyAmount;
