@@ -4,15 +4,17 @@ import com.kerrrusha.lab234.validator.auth.RegisterValidator;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 
 import static java.util.stream.Collectors.toCollection;
+import static java.util.stream.Collectors.toList;
 
 public abstract class AbstractValidator {
 
 	protected static final String DATABASE_ERROR = "Something is wrong with the server. We will definitely fix this, but for now, please try again.";
 
-	private final Collection<Optional<String>> possibleErrors;
+	protected final Collection<Optional<String>> possibleErrors;
 
 	public AbstractValidator() {
 		possibleErrors = new HashSet<>();
@@ -42,6 +44,10 @@ public abstract class AbstractValidator {
 	}
 
     public boolean onlyErrorAlreadyExists() {
-		return possibleErrors.size() == 1 && possibleErrors.toArray()[0].equals(RegisterValidator.PHONE_ALREADY_EXISTS);
+		List<String> errors = possibleErrors.stream()
+				.filter(Optional::isPresent)
+				.map(Optional::get)
+				.collect(toList());
+		return errors.size() == 1 && errors.get(0).equals(RegisterValidator.PHONE_ALREADY_EXISTS);
     }
 }
