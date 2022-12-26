@@ -4,6 +4,9 @@ public class Queries {
 
     public static final String FIND_BY_BLOCKED_USER_ID = "select * from `blocked_user` " +
 			"where blocked_user_id = ?";
+
     public static final String INSERT_BLOCKED_USER = "INSERT INTO `blocked_user`(blocked_user_id, blocked_by_user_id)" +
             " VALUES (?, ?)";
+
+    public static final String DELETE_BLOCKED_USER = "delete from `blocked_user` where blocked_user_id = ?";
 }
