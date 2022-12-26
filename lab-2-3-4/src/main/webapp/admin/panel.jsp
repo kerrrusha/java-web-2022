@@ -12,7 +12,7 @@
 </head>
 <body class="vh-100" style="background-color: #eee;">
 
-<jsp:include page="partial-pages/header.jsp" />
+<jsp:include page="../partial-pages/header.jsp" />
 
 <div class="container d-flex flex-column align-items-center justify-content-center">
   <h1 class="display-4">Welcome to admin panel!</h1>
@@ -21,24 +21,32 @@
     <div class="my-5">
       <div class="form-group mb-2">
         <label for="money-account-id">Client's money account</label>
-        <input type="text" class="form-control" id="money-account-id" placeholder="Money account ID">
+        <input type="text" oninput="updateMoneyAccountButtonStatus()" class="form-control" id="money-account-id" placeholder="Money account ID">
       </div>
       <div class="d-flex flex-row justify-content-between">
-        <button class="btn btn-primary">Block</button>
-        <button class="btn btn-secondary">Unblock</button>
+        <button id="money-account-block-button"
+                onclick="sendBlockMoneyAccountRequest('${pageContext.request.contextPath}/admin/block-money-account')"
+                class="btn btn-primary">Block</button>
+        <button id="money-account-unblock-button"
+                onclick="sendUnblockMoneyAccountRequest('${pageContext.request.contextPath}/admin/unblock-money-account')"
+                class="btn btn-secondary">Unblock</button>
       </div>
       <div id="money-account-result"></div>
     </div>
     <div class="my-5">
       <div class="form-group mb-2">
-        <label for="user-id">Whole client's account</label>
-        <input type="text" class="form-control" id="user-id" placeholder="User ID">
+        <label for="client-id">Whole client's account</label>
+        <input type="text" oninput="updateClientButtonStatus()" class="form-control" id="client-id" placeholder="Client ID">
       </div>
       <div class="d-flex flex-row justify-content-between">
-        <button class="btn btn-primary">Block</button>
-        <button class="btn btn-secondary">Unblock</button>
+        <button id="client-block-button"
+                onclick="sendBlockClientRequest('${pageContext.request.contextPath}/admin/block-client')"
+                class="btn btn-primary">Block</button>
+        <button id="client-unblock-button"
+                onclick="sendUnblockClientRequest('${pageContext.request.contextPath}/admin/unblock-client')"
+                class="btn btn-secondary">Unblock</button>
       </div>
-      <div id="user-result"></div>
+      <div id="client-result"></div>
     </div>
   </div>
 </div>
