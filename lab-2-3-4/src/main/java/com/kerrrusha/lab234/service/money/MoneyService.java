@@ -10,7 +10,8 @@ import com.kerrrusha.lab234.model.*;
 import com.kerrrusha.lab234.service.money.result.billing.BillingResult;
 import com.kerrrusha.lab234.service.money.result.open_new_card.OpenMoneyCardResult;
 import com.kerrrusha.lab234.validator.AbstractValidator;
-import com.kerrrusha.lab234.validator.BillingValidator;
+import com.kerrrusha.lab234.validator.ReplenishMoneyValidator;
+import com.kerrrusha.lab234.validator.SendMoneyValidator;
 import com.kerrrusha.lab234.validator.MoneyCardValidator;
 import com.kerrrusha.lab234.viewmodel.BillingViewModel;
 import com.kerrrusha.lab234.viewmodel.MoneycardViewModel;
@@ -153,7 +154,7 @@ public class MoneyService {
             int moneyAmount = Integer.parseInt(moneyAmountStr);
             toMoneyCardNumber = fixCardNumberIfInvalid(toMoneyCardNumber);
 
-            AbstractValidator validator = new BillingValidator(user, fromMoneyAccountId, toMoneyCardNumber, moneyAmount);
+            AbstractValidator validator = new SendMoneyValidator(user, fromMoneyAccountId, toMoneyCardNumber, moneyAmount);
             Collection<String> errorPool = validator.getErrors();
             if (!errorPool.isEmpty()) {
                 result.setStatus(HttpStatus.SC_CONFLICT);
@@ -181,6 +182,55 @@ public class MoneyService {
 
             result.setStatus(HttpStatus.SC_OK);
             result.setMoneyCard(fromMoneyCard);
+        } catch (NumberFormatException e) {
+            result.setStatus(HttpStatus.SC_BAD_REQUEST);
+            result.setErrorPool(singletonList(NUMBER_FORMAT_ERROR));
+            return result;
+        } catch (DBException e) {
+            result.setStatus(HttpStatus.SC_INTERNAL_SERVER_ERROR);
+            result.setErrorPool(singletonList(DATABASE_ERROR));
+            return result;
+        }
+
+        return result;
+    }
+
+    public BillingResult replenishMoney(String toMoneyAccountIdStr, String fromMoneyCardNumber, String fromMoneyCardSecret, String moneyAmountStr) {
+        BillingResult result = new BillingResult();
+
+        try {
+            int toMoneyAccountId = Integer.parseInt(toMoneyAccountIdStr);
+            int moneyAmount = Integer.parseInt(moneyAmountStr);
+            fromMoneyCardNumber = fixCardNumberIfInvalid(fromMoneyCardNumber);
+
+            AbstractValidator validator = new ReplenishMoneyValidator(user, toMoneyAccountId, fromMoneyCardNumber, fromMoneyCardSecret, moneyAmount);
+            Collection<String> errorPool = validator.getErrors();
+            if (!errorPool.isEmpty()) {
+                result.setStatus(HttpStatus.SC_CONFLICT);
+                result.setErrorPool(errorPool);
+                return result;
+            }
+
+            MoneyCard toMoneyCard = moneyCardDao.findMoneyCardByMoneyAccountId(toMoneyAccountId);
+            MoneyCard fromMoneyCard = moneyCardDao.findMoneyCardByNumber(fromMoneyCardNumber);
+
+            fromMoneyCard.takeMoney(moneyAmount);
+            toMoneyCard.giveMoney(moneyAmount);
+
+            moneyCardDao.updateMoneyCardBalance(fromMoneyCard);
+            moneyCardDao.updateMoneyCardBalance(toMoneyCard);
+
+            Billing billing = new Billing();
+
+            billing.setMoneyAmount(moneyAmount);
+            billing.setBillingStatusId(BILLING_STATUS_DONE_ID);
+            billing.setFromMoneyCardId(fromMoneyCard.getId());
+            billing.setToMoneyCardId(toMoneyCard.getId());
+
+            billingDao.insertBilling(billing);
+
+            result.setStatus(HttpStatus.SC_OK);
+            result.setMoneyCard(toMoneyCard);
         } catch (NumberFormatException e) {
             result.setStatus(HttpStatus.SC_BAD_REQUEST);
             result.setErrorPool(singletonList(NUMBER_FORMAT_ERROR));
