@@ -6,10 +6,12 @@ import com.kerrrusha.lab234.dao.moneycard.MoneyCardDao;
 import com.kerrrusha.lab234.model.MoneyAccount;
 import com.kerrrusha.lab234.model.User;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.kerrrusha.lab234.util.ValidatorUtil.checkIfFieldIsNull;
 import static java.util.Objects.isNull;
+import static java.util.stream.Collectors.toList;
 
 public class MoneyAccountValidator extends AbstractValidator {
 
@@ -25,6 +27,14 @@ public class MoneyAccountValidator extends AbstractValidator {
     public MoneyAccountValidator(User user, int fromMoneyAccountId) {
         this.user = user;
         this.fromMoneyAccountId = fromMoneyAccountId;
+    }
+
+    public boolean onlyErrorRestrictedMoneyAccount() {
+        List<String> errors = possibleErrors.stream()
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(toList());
+        return errors.size() == 1 && errors.get(0).equals(MoneyAccountValidator.RESTRICTED_MONEY_ACCOUNT);
     }
 
     @Override
