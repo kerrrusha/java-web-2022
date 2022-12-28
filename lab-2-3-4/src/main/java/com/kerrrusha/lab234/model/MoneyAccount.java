@@ -1,6 +1,7 @@
 package com.kerrrusha.lab234.model;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class MoneyAccount {
 
@@ -48,5 +49,18 @@ public class MoneyAccount {
 
     public LocalDateTime getUpdatedTime() {
         return updated_time;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MoneyAccount that = (MoneyAccount) o;
+        return getId() == that.getId() && owner_user_id == that.owner_user_id && Objects.equals(getName(), that.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), owner_user_id);
     }
 }
