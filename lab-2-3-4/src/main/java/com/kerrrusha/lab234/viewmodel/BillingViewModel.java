@@ -1,6 +1,7 @@
 package com.kerrrusha.lab234.viewmodel;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class BillingViewModel {
 
@@ -33,5 +34,18 @@ public class BillingViewModel {
 
     public void setCreatedTime(LocalDateTime createdTime) {
         this.createdTime = createdTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BillingViewModel that = (BillingViewModel) o;
+        return billingId == that.billingId && moneyAmount == that.moneyAmount && Objects.equals(fromCardNumber, that.fromCardNumber) && Objects.equals(toCardNumber, that.toCardNumber) && Objects.equals(statusName, that.statusName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(billingId, moneyAmount, fromCardNumber, toCardNumber, statusName);
     }
 }
