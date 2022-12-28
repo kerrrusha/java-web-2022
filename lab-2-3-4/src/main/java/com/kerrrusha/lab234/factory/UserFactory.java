@@ -9,7 +9,7 @@ public class UserFactory {
 
         user.setFirstName("exampleFirstName");
         user.setLastName("exampleLastName");
-        user.setPhone("+111111111111");
+        user.setPhone("+112352345313");
         user.setPassword("examplePassword");
         user.setRoleId(1);
 
