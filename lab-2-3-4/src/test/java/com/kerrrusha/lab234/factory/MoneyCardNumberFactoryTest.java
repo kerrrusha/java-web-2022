@@ -1,4 +1,4 @@
-package com.kerrrusha.lab234;
+package com.kerrrusha.lab234.factory;
 
 import org.junit.jupiter.api.Test;
 
