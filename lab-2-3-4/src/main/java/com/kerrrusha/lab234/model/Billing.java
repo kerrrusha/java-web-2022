@@ -1,6 +1,7 @@
 package com.kerrrusha.lab234.model;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Billing {
 
@@ -57,5 +58,18 @@ public class Billing {
 
     public void setBillingStatusId(int billing_status_id) {
         this.billing_status_id = billing_status_id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Billing billing = (Billing) o;
+        return getId() == billing.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }
