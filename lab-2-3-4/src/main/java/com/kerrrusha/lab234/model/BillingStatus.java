@@ -1,5 +1,7 @@
 package com.kerrrusha.lab234.model;
 
+import java.util.Objects;
+
 public class BillingStatus {
 
     private int id;
@@ -19,5 +21,18 @@ public class BillingStatus {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BillingStatus that = (BillingStatus) o;
+        return getId() == that.getId() && getName().equals(that.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName());
     }
 }
