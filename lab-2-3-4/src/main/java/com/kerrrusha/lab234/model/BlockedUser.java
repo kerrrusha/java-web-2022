@@ -1,6 +1,7 @@
 package com.kerrrusha.lab234.model;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class BlockedUser {
 
@@ -23,5 +24,26 @@ public class BlockedUser {
 
     public void setCreatedTime(LocalDateTime created_time) {
         this.created_time = created_time;
+    }
+
+    public int getBlockedUserId() {
+        return blocked_user_id;
+    }
+
+    public int getBlockedByUserId() {
+        return blocked_by_user_id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BlockedUser that = (BlockedUser) o;
+        return id == that.id && blocked_user_id == that.blocked_user_id && blocked_by_user_id == that.blocked_by_user_id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, blocked_user_id, blocked_by_user_id);
     }
 }
