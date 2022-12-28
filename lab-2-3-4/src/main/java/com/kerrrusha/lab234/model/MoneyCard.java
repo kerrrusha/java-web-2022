@@ -96,11 +96,7 @@ public class MoneyCard implements Serializable {
     }
 
     public void setNumberFromId() {
-        if (getId() == 0) {
-            return;
-        }
-        String cardNumber = createNumber(getId());
-        setNumber(cardNumber);
+        setNumber(createNumber(getId()));
     }
 
     public String getPrettyBalanceString() {
