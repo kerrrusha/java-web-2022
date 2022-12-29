@@ -1,6 +1,9 @@
 # Лабораторна робота No. 2, 3, 4
 ##### Варіант 2 (Коваль Кирило, ІС-02)
 
+## Link to video explanation
+https://youtu.be/F07yIG9wL_w
+
 ## Task
 ![desc](https://user-images.githubusercontent.com/73041091/207748464-ffec55e1-88b8-4000-b011-c9386f3eef51.jpg)
 
